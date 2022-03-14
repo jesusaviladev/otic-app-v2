@@ -11,21 +11,17 @@ const LoginPage = () => {
 						className="w-[34rem] h-10"
 					/>
 				</div>
-				<div className="h-16 flex justify-start sm:justify-between items-center px-4 sm:px-40">
+				<div className="flex justify-evenly md:justify-between items-center px-6 py-1 sm:px-40">
 					<a href="/">
-						<img
-							src={'/upt-logo.svg'}
-							alt="heading"
-							className="h-12"
-						/>
+						<img src={'/upt-logo.svg'} alt="heading" className="h-12" />
 					</a>
-					<p className="text-md ml-8">
-						Universidad Politécnica Territorial "José Félix Ribas"
+					<p className="text-xs md:text-base font-light">
+						Universidad Politécnica Territorial {`"José Félix Ribas"`}
 					</p>
 				</div>
 			</header>
-			<main className="min-h-screen">
-				<h1 className="text-center font-medium text-3xl my-5">
+			<main>
+				<h1 className="text-center font-bold text-3xl md:text-4xl my-5 sm:mt-20 sm:mb-10">
 					Oficina de tecnología, información y comunicación
 				</h1>
 				<Login />
