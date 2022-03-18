@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
 
 const PasswordField = ({ onChange, value }) => {
 	const [visible, setVisible] = useState(false);
@@ -14,16 +15,15 @@ const PasswordField = ({ onChange, value }) => {
 				onChange={onChange}
 				value={value}
 			/>
-			<img
-				src={
-					visible
-						? '/assets/icons/visibility-off.svg'
-						: '/assets/icons/visibility.svg'
+			<i
+			className="text-red-600 absolute right-4 top-1/2 -translate-y-1/2 hover:cursor-pointer" 
+			onClick={() => setVisible(!visible)}>
+				{
+					visible 
+					? <MdOutlineVisibilityOff className="w-6 h-6"/>
+					: <MdOutlineVisibility className="w-6 h-6"/>
 				}
-				alt="visibility"
-				className="absolute right-4 top-1/2 -translate-y-[0.9rem] hover:cursor-pointer"
-				onClick={(e) => setVisible(!visible)}
-			/>
+			</i>
 		</div>
 	);
 };
