@@ -1,30 +1,33 @@
 import Login from '../components/Login.jsx';
+import Banner from '../components/Banner.jsx';
+import Header from '../components/Header.jsx';
 
 const LoginPage = () => {
 	return (
 		<>
-			<header className="bg-neutral-900 shadow-sm">
-				<div className="bg-black flex justify-center">
-					<img
-						src={'assets/heading.png'}
-						alt="heading"
-						className="w-[34rem] h-10"
-					/>
-				</div>
-				<div className="flex justify-evenly md:justify-between items-center px-6 py-1 sm:px-40">
+			<Header>
+				<Banner />
+				<div className="max-w-4xl mx-auto py-2 flex justify-around lg:justify-between items-center">
 					<a href="/">
-						<img src={'/upt-logo.svg'} alt="heading" className="h-12" />
+						<img
+							src={'/assets/images/upt-logo-2.svg'}
+							alt="heading"
+							className="h-8 md:h-12"
+						/>
 					</a>
-					<p className="text-xs md:text-base font-light">
-						Universidad Politécnica Territorial {`"José Félix Ribas"`}
+					<p className="text-xs md:text-base font-extralight">
+						Universidad Politécnica Territorial
+						<span className="font-bold">{` "José Félix Ribas"`}</span>
 					</p>
 				</div>
-			</header>
+			</Header>
 			<main>
-				<h1 className="text-center font-bold text-3xl md:text-4xl my-5 sm:mt-20 sm:mb-10">
+				<h1 className="text-center font-bold text-3xl md:text-4xl my-10 px-3 sm:mt-20">
 					Oficina de tecnología, información y comunicación
 				</h1>
-				<Login />
+				<div className="min-w-screen mb-10 px-4">
+					<Login />
+				</div>
 			</main>
 		</>
 	);
