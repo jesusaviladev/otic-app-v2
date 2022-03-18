@@ -1,11 +1,10 @@
 import { Link, Navigate } from 'react-router-dom';
-import useSession from '../hooks/useSession.js'
+import useSession from '../hooks/useSession.js';
 
 const LandingPage = () => {
+	const { token } = useSession();
 
-	const { token } = useSession()
-
-	if(token) return <Navigate to="/dashboard"/>
+	if (token) return <Navigate to="/dashboard" />;
 
 	return (
 		<>
@@ -13,7 +12,7 @@ const LandingPage = () => {
 
 			<Link to="/login">Iniciar sesión</Link>
 		</>
-		)
-}
+	);
+};
 
-export default LandingPage
+export default LandingPage;

@@ -8,7 +8,7 @@ const Sidebar = () => {
 				<li>Usuarios</li>
 			</ul>
 		</nav>
-		)
-}
+	);
+};
 
-export default Sidebar
+export default Sidebar;
