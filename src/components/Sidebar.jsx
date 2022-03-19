@@ -4,10 +4,12 @@ import Menu from './Menu.jsx';
 import SubMenu from './SubMenu.jsx';
 import MenuItem from './MenuItem.jsx';
 
-const Sidebar = ({ showMenu }) => {
+const Sidebar = ({ show }) => {
+
+	const className = show ? 'translate-x-0' : '-translate-x-full'
 
 	return (
-		<div className="bg-black lg:max-w-xs text-gray-100 min-h-screen">
+		<div className={`bg-black text-gray-100 text-center absolute lg:static lg:translate-x-0 w-full min-h-screen lg:text-left lg:max-w-xs transition-transform duration-300 ` + className}>
 			<SidebarHeader>
 				<img src="/assets/images/upt-logo.svg" alt="logo" className="h-20" />
 			</SidebarHeader>

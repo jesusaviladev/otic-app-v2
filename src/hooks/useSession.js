@@ -28,7 +28,7 @@ const useSession = () => {
 
 	const handleLogout = useCallback(() => {
 		setToken(null);
-		window.sessionStorage.deleteItem('token');
+		window.sessionStorage.removeItem('token');
 		navigate('/', { replace: true });
 	});
 

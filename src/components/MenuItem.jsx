@@ -6,7 +6,7 @@ const MenuItem = ({ title, icon, children }) => {
 	return (
 		<>
 			<li 
-			className="p-4 cursor-pointer rounded hover:bg-gray-100 hover:text-black hover:border-l-4 hover:border-red-600" 
+			className="bg-gray-800 mb-2 p-4 cursor-pointer rounded hover:bg-red-600 hover:border-l-4 hover:border-yellow-300" 
 			onClick={() => setOpen(!open)}>
 				{title}
 			</li>
