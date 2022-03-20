@@ -15,7 +15,7 @@ const Sidebar = ({ show, setShow }) => {
 	return (
 		<div
 			className={
-				`bg-black text-gray-100 absolute lg:static lg:translate-x-0 w-full min-h-screen lg:text-left lg:max-w-xs transition-transform duration-300 ` +
+				`bg-black text-gray-100 absolute z-50 lg:static lg:translate-x-0 w-full min-h-screen lg:text-left lg:max-w-xs transition-transform duration-300 ` +
 				className
 			}
 			onClick={() => setShow()}
