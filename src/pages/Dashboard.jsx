@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar.jsx';
 import Navbar from '../components/Navbar.jsx';
 import { FaBars } from 'react-icons/fa'
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 
 const Dashboard = () => {
 
@@ -16,10 +17,10 @@ const Dashboard = () => {
 				</Navbar>
 			</Header>
 
-			<main className="bg-gray-200 lg:flex">
-				<Sidebar show={showMenu} />
-				<div className="text-black min-h-screen flex-grow">
-					Home
+			<main className="bg-gray-100 lg:flex">
+				<Sidebar show={showMenu} setShow={() => setShowMenu(!showMenu)}/>
+				<div className="text-black min-h-screen flex-grow p-4">
+					<Outlet/>
 				</div>
 			</main>
 		</>

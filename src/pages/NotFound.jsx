@@ -8,8 +8,8 @@ const NotFound = () => {
 			<Header>
 				<Banner />
 			</Header>
-			<main className="flex flex-col justify-center align-center h-96">
-				<h1 className="flex justify-center align-center mb-8 divide-x divide-gray-600/50 font-extrabold text-3xl sm:text-7xl">
+			<main className="flex flex-col justify-center items-center h-96">
+				<h1 className="flex justify-center items-center mb-8 divide-x divide-gray-600/50 font-extrabold text-3xl sm:text-7xl">
 					<span className="text-red-500 px-5">404</span>
 					<span className="px-2">No encontrado</span>
 				</h1>

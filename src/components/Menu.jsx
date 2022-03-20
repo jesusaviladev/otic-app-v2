@@ -2,7 +2,7 @@ const Menu = ({ children }) => {
 
 	return (
 		<nav>
-			<ul className="p-2">
+			<ul className="flex flex-col gap-y-1">
 				{children}
 			</ul>
 		</nav>
