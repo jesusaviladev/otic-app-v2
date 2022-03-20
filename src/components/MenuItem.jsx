@@ -4,7 +4,7 @@ import { useState } from 'react';
 const MenuItem = ({ title, icon, route, children }) => {
 	const [open, setOpen] = useState(false);
 
-	const link = route || '/#'
+	const link = route || '/#';
 
 	return (
 		<>

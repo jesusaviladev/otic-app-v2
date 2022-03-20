@@ -9,13 +9,11 @@ const LandingPage = () => {
 	if (token) return <Navigate to="/dashboard" />;
 
 	return (
-		<>	
+		<>
 			<Header>
-				<Banner/>
+				<Banner />
 			</Header>
-			<h1>
-				Sistema de gestión de servicios OTIC
-			</h1>
+			<h1>Sistema de gestión de servicios OTIC</h1>
 
 			<Link to="/login">Iniciar sesión</Link>
 		</>

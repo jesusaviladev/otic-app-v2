@@ -1,7 +1,6 @@
 import Login from '../components/Login.jsx';
 import Banner from '../components/Banner.jsx';
 import Header from '../components/Header.jsx';
-import Navbar from '../components/Navbar.jsx';
 
 const LoginPage = () => {
 	return (

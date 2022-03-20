@@ -20,11 +20,11 @@ function App() {
 					<Route path="/login" element={<LoginPage />} />
 					<Route element={<ProtectedRoute />}>
 						<Route path="/dashboard" element={<Dashboard />}>
-							<Route path="/dashboard/" element={<Home/>}/>
-							<Route path="/dashboard/solicitudes" element={<Requests/>}/>
-							<Route path="/dashboard/reportes" element={<Reports/>}/>
-							<Route path="/dashboard/usuarios" element={<Users/>}/>
-							<Route path="/dashboard/equipos" element={<Devices/>}/>
+							<Route path="/dashboard/" element={<Home />} />
+							<Route path="/dashboard/solicitudes" element={<Requests />} />
+							<Route path="/dashboard/reportes" element={<Reports />} />
+							<Route path="/dashboard/usuarios" element={<Users />} />
+							<Route path="/dashboard/equipos" element={<Devices />} />
 						</Route>
 					</Route>
 					<Route path="*" element={<NotFound />} />
