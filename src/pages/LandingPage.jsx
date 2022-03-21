@@ -13,9 +13,11 @@ const LandingPage = () => {
 			<Header>
 				<Banner />
 			</Header>
-			<h1>Sistema de gestión de servicios OTIC</h1>
+			<h1 className="text-center font-bold text-3xl md:text-6xl my-10 px-3 sm:mt-20">Sistema de gestión de soporte técnico</h1>
 
-			<Link to="/login">Iniciar sesión</Link>
+			<div className="flex justify-center itemsc-center p-4">
+				<Link to="/login" className="px-6 py-2 rounded bg-red-600 font-bold">Iniciar sesión</Link>
+			</div>
 		</>
 	);
 };
