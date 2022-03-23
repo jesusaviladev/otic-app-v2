@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { API_URL } from './config.js';
 
 export const getRequests = (token) => {
@@ -6,8 +6,7 @@ export const getRequests = (token) => {
 		method: 'get',
 		url: `${API_URL}/requests`,
 		headers: {
-			'Authorization': `Bearer ${token}`
-		}
+			Authorization: `Bearer ${token}`,
+		},
 	});
-}
-
+};

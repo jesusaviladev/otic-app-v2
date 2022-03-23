@@ -3,24 +3,23 @@ import { getUsers } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
-import TableSpinner from '../components/TableSpinner.jsx'
+import TableSpinner from '../components/TableSpinner.jsx';
 
 const Users = () => {
-
 	const [users, setUsers] = useState([]);
-	const [pending, setPending] = useState(true)
+	const [pending, setPending] = useState(true);
 
 	const { token } = useSession();
 
 	useEffect(() => {
 		getUsers(token)
 			.then((res) => {
-				setPending(false)
+				setPending(false);
 				setUsers(res.data.users);
 			})
 			.catch((error) => {
-				setPending(false)
-				console.log(error)
+				setPending(false);
+				console.log(error);
 			});
 	}, []);
 
@@ -42,24 +41,24 @@ const Users = () => {
 			name: 'Nombre',
 			selector: (row) => row.name,
 			style: {
-				textTransform: 'capitalize'
-			}
+				textTransform: 'capitalize',
+			},
 		},
 		{
 			name: 'Apellido',
 			selector: (row) => row.surname,
 			style: {
-				textTransform: 'capitalize'
-			}
+				textTransform: 'capitalize',
+			},
 		},
 		{
 			name: 'C.I.',
-			selector: (row) => row.ci
+			selector: (row) => row.ci,
 		},
 		{
 			name: 'Rol',
-			selector: (row) => row.role_id
-		}
+			selector: (row) => row.role_id,
+		},
 	];
 
 	return (
@@ -73,10 +72,10 @@ const Users = () => {
 				highlightOnHover
 				pointerOnHover
 				striped
-    			progressPending={pending}
+				progressPending={pending}
 				persistTableHead
-				noDataComponent={<NoDataComponent/>}
-				progressComponent={<TableSpinner/>}
+				noDataComponent={<NoDataComponent />}
+				progressComponent={<TableSpinner />}
 			/>
 		</>
 	);
