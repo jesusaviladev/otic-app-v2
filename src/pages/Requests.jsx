@@ -2,19 +2,26 @@ import { useState, useEffect } from 'react';
 import { getRequests } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import NoDataComponent from '../components/NoDataComponent.jsx';
+import TableSpinner from '../components/TableSpinner.jsx'
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Requests = () => {
 	const [requests, setRequests] = useState([]);
+	const [pending, setPending] = useState(true)
 
 	const { token } = useSession();
 
 	useEffect(() => {
 		getRequests(token)
 			.then((res) => {
+				setPending(false)
 				setRequests(res.data.requests);
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				setPending(false)
+				console.log(error)
+			});
 	}, []);
 
 	const columns = [
@@ -68,6 +75,11 @@ const Requests = () => {
 			paginationComponentOptions={paginationComponentOptions}
 			highlightOnHover
 			pointerOnHover
+			striped
+			progressPending={pending}
+			persistTableHead
+			noDataComponent={<NoDataComponent/>}
+			progressComponent={<TableSpinner/>}
 			/>
 		</>
 	);
