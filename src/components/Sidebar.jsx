@@ -43,7 +43,7 @@ const Sidebar = ({ show, setShow }) => {
 				<MenuItem
 					icon={<FaUser />}
 					title="Usuarios"
-					route="/dashboard/usuarios"
+					route="/admin/usuarios"
 				/>
 			</Menu>
 		</div>

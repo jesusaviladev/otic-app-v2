@@ -10,3 +10,33 @@ export const getUsers = (token) => {
 		},
 	});
 };
+
+export const getUserById = (token, id) => {
+		return axios({
+		method: 'get',
+		url: `${API_URL}/users/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+}
+
+export const getUserRequests = (token, id) => {
+		return axios({
+		method: 'get',
+		url: `${API_URL}/users/${id}/requests`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+}
+
+export const getUserReports = (token, id) => {
+		return axios({
+		method: 'get',
+		url: `${API_URL}/users/${id}/reports`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+}

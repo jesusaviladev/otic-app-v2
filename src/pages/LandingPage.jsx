@@ -4,9 +4,20 @@ import Header from '../components/Header.jsx';
 import Banner from '../components/Banner.jsx';
 
 const LandingPage = () => {
-	const { token } = useSession();
 
-	if (token) return <Navigate to="/dashboard" />;
+	let { user } = useSession();
+
+	if (user){
+		const { role } = JSON.parse(user)
+
+		if(role === 'admin'){
+			return <Navigate to="/admin" />;
+		}
+
+		else {
+			return <Navigate to="/dashboard" />;
+		}
+	}
 
 	return (
 		<>

@@ -10,7 +10,8 @@ const Requests = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
 
-	const { token } = useSession();
+	const { user } = useSession();
+	const { token } = JSON.parse(user) 
 
 	useEffect(() => {
 		getRequests(token)
