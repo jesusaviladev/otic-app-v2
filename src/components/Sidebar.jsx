@@ -1,15 +1,8 @@
 import SidebarHeader from './SidebarHeader.jsx';
 import Menu from './Menu.jsx';
 import MenuItem from './MenuItem.jsx';
-import {
-	FaHome,
-	FaClipboardList,
-	FaClipboardCheck,
-	FaDesktop,
-	FaUser,
-} from 'react-icons/fa';
 
-const Sidebar = ({ show, setShow }) => {
+const Sidebar = ({ show, setShow, items }) => {
 	const className = show ? 'translate-x-0' : '-translate-x-full';
 
 	return (
@@ -24,27 +17,14 @@ const Sidebar = ({ show, setShow }) => {
 				<img src="/assets/images/upt-logo-2.svg" alt="logo" className="h-20" />
 			</SidebarHeader>
 			<Menu>
-				<MenuItem icon={<FaHome />} title="Inicio" route="/dashboard/" />
-				<MenuItem
-					icon={<FaClipboardList />}
-					title="Solicitudes"
-					route="/dashboard/solicitudes"
-				/>
-				<MenuItem
-					icon={<FaClipboardCheck />}
-					title="Reportes"
-					route="/dashboard/reportes"
-				/>
-				<MenuItem
-					icon={<FaDesktop />}
-					title="Equipos"
-					route="/dashboard/equipos"
-				/>
-				<MenuItem
-					icon={<FaUser />}
-					title="Usuarios"
-					route="/admin/usuarios"
-				/>
+				{
+					items.map(item => <MenuItem
+						icon={item.icon}
+						title={item.title}
+						route={item.route}
+						key={item.title}
+						/>)
+				}
 			</Menu>
 		</div>
 	);
