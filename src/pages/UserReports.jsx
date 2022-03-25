@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
-import { getRequests } from '../services/requests.services.js';
+import { getUserReports } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import { FaEdit, FaTrash } from 'react-icons/fa';
 
-const Requests = () => {
-	const [requests, setRequests] = useState([]);
+const UserReports = () => {
+	const [reports, setReports] = useState([]);
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user) 
+	const { token, id } = JSON.parse(user)
 
 	useEffect(() => {
-		getRequests(token)
+		getUserReports(token, id)
 			.then((res) => {
 				setPending(false);
-				setRequests(res.data.requests);
+				setReports(res.data.reports);
 			})
 			.catch((error) => {
 				setPending(false);
@@ -32,53 +31,26 @@ const Requests = () => {
 			width: '50px',
 		},
 		{
-			name: 'Descripción',
-			selector: (row) => row.description,
+			name: 'Comentario',
+			selector: (row) => row.comment,
 		},
 		{
 			name: 'Fecha',
 			selector: (row) => row.date,
-		},
-		{
-			name: 'Status',
-			selector: (row) => row.status_id,
-			width: '100px',
-		},
-		{
-			name: 'Usuario',
-			selector: (row) => row.user_id,
-			width: '100px',
-		},
-		{
-			name: 'Editar',
-			button: true,
-			cell: () => (
-				<button>
-					<FaEdit />
-				</button>
-			),
-		},
-		{
-			name: 'Eliminar',
-			button: true,
-			cell: () => (
-				<button>
-					<FaTrash />
-				</button>
-			),
-		},
+		}
 	];
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',
 	};
 
+
 	return (
 		<>
 			<DataTable
-				title="Solicitudes"
+				title="Mis reportes"
 				columns={columns}
-				data={requests}
+				data={reports}
 				pagination
 				paginationComponentOptions={paginationComponentOptions}
 				highlightOnHover
@@ -90,7 +62,7 @@ const Requests = () => {
 				progressComponent={<TableSpinner />}
 			/>
 		</>
-	);
-};
+		)
+}
 
-export default Requests;
+export default UserReports

@@ -1,14 +1,15 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { getUserById } from '../services/users.services.js'
 
 const AuthContext = createContext({ default: null });
 
 export const AuthContextProvider = ({ children }) => {
-	const [token, setToken] = useState(
-		() => sessionStorage.getItem('token') || null
+	const [user, setUser] = useState(
+		() => sessionStorage.getItem('user') || null
 	);
 
 	return (
-		<AuthContext.Provider value={{ token, setToken }}>
+		<AuthContext.Provider value={{ user, setUser }}>
 			{children}
 		</AuthContext.Provider>
 	);

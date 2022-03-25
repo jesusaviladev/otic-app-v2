@@ -4,7 +4,7 @@ import login from '../services/login.services.js';
 import AuthContext from '../context/AuthContext.jsx';
 
 const useSession = () => {
-	const { token, setToken } = useContext(AuthContext);
+	const { user, setUser } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
@@ -13,11 +13,20 @@ const useSession = () => {
 		setLoading(true);
 		login(username, password)
 			.then((res) => {
+				const user = res.data
 				setLoading(false);
-				const { token } = res.data;
-				setToken(token);
-				window.sessionStorage.setItem('token', token);
-				navigate('/dashboard', { replace: true });
+				const userInfo = JSON.stringify(user)
+				setUser(userInfo)
+				window.sessionStorage.setItem('user', userInfo);
+
+				if(user.role === 'admin'){
+					navigate('/admin', { replace: true });
+				}
+
+				else {
+					navigate('/dashboard', { replace: true });
+				}
+
 			})
 			.catch((error) => {
 				setLoading(false);
@@ -27,13 +36,13 @@ const useSession = () => {
 	});
 
 	const handleLogout = useCallback(() => {
-		setToken(null);
-		window.sessionStorage.removeItem('token');
+		setUser(null);
+		window.sessionStorage.removeItem('user');
 		navigate('/', { replace: true });
 	});
 
 	return {
-		token,
+		user,
 		loading,
 		error,
 		handleLogin,
