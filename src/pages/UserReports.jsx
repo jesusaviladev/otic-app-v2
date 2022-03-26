@@ -59,6 +59,7 @@ const UserReports = () => {
 				persistTableHead
 				noDataComponent={<NoDataComponent />}
 				progressComponent={<TableSpinner />}
+				theme="dark"
 			/>
 		</>
 	);

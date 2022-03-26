@@ -5,7 +5,7 @@ const Navbar = ({ children }) => {
 	const { handleLogout } = useSession();
 
 	return (
-		<div className="p-4 flex justify-between items-center lg:justify-end">
+		<div className="bg-black p-4 flex justify-between items-center lg:justify-end">
 			{children}
 			<div className="flex items-center">
 				<button onClick={() => handleLogout()}>Cerrar sesión</button>

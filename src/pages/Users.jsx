@@ -77,6 +77,7 @@ const Users = () => {
 				persistTableHead
 				noDataComponent={<NoDataComponent />}
 				progressComponent={<TableSpinner />}
+				theme="dark"
 			/>
 		</>
 	);

@@ -1,5 +1,6 @@
 import Banner from '../components/Banner.jsx';
 import Header from '../components/Header.jsx';
+import Button from '../components/Button.jsx';
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
@@ -17,9 +18,7 @@ const NotFound = () => {
 					El recurso que ha solicitado no ha sido encontrado
 				</p>
 				<div className="flex justify-center itemsc-center p-4">
-					<Link to="/" className="px-6 py-2 rounded bg-red-600 font-bold">
-						Volver a inicio
-					</Link>
+					<Button href="/">Volver al inicio</Button>
 				</div>
 			</main>
 		</>
