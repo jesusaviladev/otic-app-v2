@@ -16,7 +16,11 @@ const NotFound = () => {
 				<p className="text-center px-2">
 					El recurso que ha solicitado no ha sido encontrado
 				</p>
-				<Link to="/">Volver a inicio</Link>
+				<div className="flex justify-center itemsc-center p-4">
+					<Link to="/" className="px-6 py-2 rounded bg-red-600 font-bold">
+						Volver a inicio
+					</Link>
+				</div>
 			</main>
 		</>
 	);

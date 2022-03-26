@@ -10,7 +10,7 @@ const Reports = () => {
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user)
+	const { token } = JSON.parse(user);
 
 	useEffect(() => {
 		getReports(token)
@@ -47,7 +47,6 @@ const Reports = () => {
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',
 	};
-
 
 	return (
 		<>

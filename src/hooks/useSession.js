@@ -13,20 +13,17 @@ const useSession = () => {
 		setLoading(true);
 		login(username, password)
 			.then((res) => {
-				const user = res.data
+				const user = res.data;
 				setLoading(false);
-				const userInfo = JSON.stringify(user)
-				setUser(userInfo)
+				const userInfo = JSON.stringify(user);
+				setUser(userInfo);
 				window.sessionStorage.setItem('user', userInfo);
 
-				if(user.role === 'admin'){
+				if (user.role === 'admin') {
 					navigate('/admin', { replace: true });
-				}
-
-				else {
+				} else {
 					navigate('/dashboard', { replace: true });
 				}
-
 			})
 			.catch((error) => {
 				setLoading(false);

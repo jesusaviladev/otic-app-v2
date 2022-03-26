@@ -10,7 +10,7 @@ const Users = () => {
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user) 
+	const { token } = JSON.parse(user);
 
 	useEffect(() => {
 		getUsers(token)

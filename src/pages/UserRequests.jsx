@@ -10,7 +10,7 @@ const UserRequest = () => {
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token, id } = JSON.parse(user) 
+	const { token, id } = JSON.parse(user);
 
 	useEffect(() => {
 		getUserRequests(token, id)
@@ -23,7 +23,6 @@ const UserRequest = () => {
 				console.log(error);
 			});
 	}, []);
-
 
 	const columns = [
 		{
@@ -72,7 +71,7 @@ const UserRequest = () => {
 				progressComponent={<TableSpinner />}
 			/>
 		</>
-		)
-}
+	);
+};
 
-export default UserRequest
+export default UserRequest;

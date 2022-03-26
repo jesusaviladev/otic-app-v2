@@ -10,7 +10,7 @@ const UserReports = () => {
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token, id } = JSON.parse(user)
+	const { token, id } = JSON.parse(user);
 
 	useEffect(() => {
 		getUserReports(token, id)
@@ -37,13 +37,12 @@ const UserReports = () => {
 		{
 			name: 'Fecha',
 			selector: (row) => row.date,
-		}
+		},
 	];
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',
 	};
-
 
 	return (
 		<>
@@ -62,7 +61,7 @@ const UserReports = () => {
 				progressComponent={<TableSpinner />}
 			/>
 		</>
-		)
-}
+	);
+};
 
-export default UserReports
+export default UserReports;
