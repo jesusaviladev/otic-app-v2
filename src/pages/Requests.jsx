@@ -8,6 +8,7 @@ import TableSpinner from '../components/TableSpinner.jsx';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Modal from '../components/Modal.jsx';
 import Button from '../components/Button.jsx';
+import RequestsForm from '../components/RequestsForm.jsx'
 
 const Requests = () => {
 	const [requests, setRequests] = useState([]);
@@ -99,7 +100,9 @@ const Requests = () => {
 				theme="dark"
 			/>
 
-			{showModal && <Modal onClose={toggleModal}> Modal solicitudes </Modal>}
+			{showModal && <Modal onClose={toggleModal}>
+				<RequestsForm/>
+			</Modal>}
 		</>
 	);
 };
