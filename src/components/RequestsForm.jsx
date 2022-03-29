@@ -1,28 +1,56 @@
+import { useForm } from 'react-hook-form'
+import Input from '../components/Input.jsx'
+import TextAreaInput from '../components/TextAreaInput.jsx'
+
 const RequestsForm = () => {
 
+	const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+	const onSubmit = (values) => {
+		console.log(values)
+	}
+
 	return (
-		<form>
+		<>
 			<h2>Nueva solicitud</h2>
-			<fieldset>
-				<legend>Datos de la solicitud</legend>
-				<div>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<fieldset>
+					<legend>Datos de la solicitud</legend>
 					<div>
-						<label htmlFor="description"></label>
-						<textarea name="description" id="description" cols="30" rows="10" placeholder="Descripcion"></textarea>
+						<label htmlFor="user">
+							Asignar un usuario
+						</label>
+						<select 
+						{...register('user_id')}
+						id="user">
+							<option value=''>Sin usuario</option>
+							<option value="jesus">Jesus</option>
+							<option value="manuel">Manuel</option>
+						</select>
 					</div>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Datos del equipo</legend>
+					<TextAreaInput
+					fieldName="descripcion"
+					register={register} 
+					errors={errors} 
+					placeholder="Comentarios de la solicitud" 
+					isRequired={true} 
+					/>
+				</fieldset>
+				<fieldset>
+					<legend>Datos del equipo</legend>
+						<Input
+							fieldName="serial"
+							register={register} 
+							errors={errors} 
+							placeholder="Ingresa el serial del equipo" 
+							isRequired={true} 
+						/>
+				</fieldset>
 				<div>
-					<label htmlFor="serial"></label>
-					<input type="text" name="serial" placeholder="Serial del equipo"/>
+					<button>Crear nueva</button>
 				</div>
-			</fieldset>
-			<div>
-				<button>Crear nueva</button>
-			</div>
-		</form>
+			</form>
+		</>
 		)
 };
 

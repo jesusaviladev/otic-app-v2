@@ -64,7 +64,6 @@ const UserRequest = () => {
 				paginationComponentOptions={paginationComponentOptions}
 				highlightOnHover
 				pointerOnHover
-				striped
 				progressPending={pending}
 				persistTableHead
 				noDataComponent={<NoDataComponent />}

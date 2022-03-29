@@ -52,7 +52,7 @@ const UserReports = () => {
 	return (
 		<>
 			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Añadir nuevo</Button>
+				<Button onClick={toggleModal}>Nuevo reporte</Button>
 			</div>
 			<DataTable
 				title="Mis reportes"
@@ -62,7 +62,6 @@ const UserReports = () => {
 				paginationComponentOptions={paginationComponentOptions}
 				highlightOnHover
 				pointerOnHover
-				striped
 				progressPending={pending}
 				persistTableHead
 				noDataComponent={<NoDataComponent />}

@@ -58,7 +58,6 @@ const Reports = () => {
 				paginationComponentOptions={paginationComponentOptions}
 				highlightOnHover
 				pointerOnHover
-				striped
 				progressPending={pending}
 				persistTableHead
 				noDataComponent={<NoDataComponent />}
