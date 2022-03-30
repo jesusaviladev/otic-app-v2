@@ -1,7 +1,6 @@
 import Banner from '../components/Banner.jsx';
 import Header from '../components/Header.jsx';
 import Button from '../components/Button.jsx';
-import { Link } from 'react-router-dom';
 
 const NotFound = () => {
 	return (

@@ -4,6 +4,10 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
+import Button from '../components/Button.jsx';
+import RequestsForm from '../components/RequestsForm.jsx'
+import Modal from '../components/Modal.jsx';
+import useModal from '../hooks/useModal.js';
 
 const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
@@ -11,6 +15,8 @@ const UserRequest = () => {
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
+
+	const { showModal, toggleModal } = useModal();
 
 	useEffect(() => {
 		getUserRequests(token, id)
@@ -56,6 +62,9 @@ const UserRequest = () => {
 
 	return (
 		<>
+			<div className="flex justify-end p-3 text-white">
+				<Button onClick={toggleModal}>Nueva solicitud</Button>
+			</div>
 			<DataTable
 				title="Mis solicitudes"
 				columns={columns}
@@ -70,6 +79,10 @@ const UserRequest = () => {
 				progressComponent={<TableSpinner />}
 				theme="dark"
 			/>
+
+			{showModal && <Modal onClose={toggleModal}>
+				<RequestsForm onClose={toggleModal}/>
+			</Modal>}
 		</>
 	);
 };

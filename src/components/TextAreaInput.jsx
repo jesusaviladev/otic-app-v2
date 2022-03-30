@@ -1,14 +1,15 @@
 const TextAreaInput = ({
 	fieldName,
+	label,
 	register,
 	errors,
 	placeholder,
 	isRequired
 }) => {
 	return (
-		//Text area
-		<div>
-			<label htmlFor={fieldName}></label>
+		// Text area
+		<div className="mb-2">
+			<label htmlFor={fieldName}>{label}</label>
 			<textarea
 				placeholder={placeholder}
 				id={fieldName}
@@ -22,7 +23,7 @@ const TextAreaInput = ({
 			/>
 			<p className="my-2 text-red-600 text-sm">
 				{
-					//Muestra errores si existen
+					// Muestra errores si existen
 					errors[fieldName] && errors[fieldName].message
 				}
 			</p>

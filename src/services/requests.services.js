@@ -18,6 +18,6 @@ export const createRequest = (token, data) => {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
-		body: data
+		data: data
 	})
 }

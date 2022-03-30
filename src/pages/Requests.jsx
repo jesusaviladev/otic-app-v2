@@ -82,7 +82,7 @@ const Requests = () => {
 	return (
 		<>
 			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Añadir nueva</Button>
+				<Button onClick={toggleModal}>Nueva solicitud</Button>
 			</div>
 			<DataTable
 				title="Solicitudes"
@@ -100,7 +100,7 @@ const Requests = () => {
 			/>
 
 			{showModal && <Modal onClose={toggleModal}>
-				<RequestsForm/>
+				<RequestsForm onClose={toggleModal}/>
 			</Modal>}
 		</>
 	);

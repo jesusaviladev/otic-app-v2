@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useSession from '../hooks/useSession.js';
 import Header from '../components/Header.jsx';
 import Banner from '../components/Banner.jsx';

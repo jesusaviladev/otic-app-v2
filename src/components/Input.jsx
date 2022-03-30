@@ -1,5 +1,6 @@
 const Input = ({
 	fieldName,
+	label,
 	register,
 	errors,
 	placeholder,
@@ -8,9 +9,9 @@ const Input = ({
 	minimLength
 }) => {
 	return (
-		//Input de texto
-		<div>
-			<label htmlFor={fieldName}></label>
+		// Input de texto
+		<div className="mb-2">
+			<label htmlFor={fieldName}>{label}</label>
 			<input
 				type="text"
 				placeholder={placeholder}
@@ -31,9 +32,9 @@ const Input = ({
 					},
 				})}
 			/>
-			<p className="my-2 text-red-600 text-sm">
+			<p className="my-2 text-red-500 text-sm">
 				{
-					//Muestra errores si existen
+					// Muestra errores si existen
 					errors[fieldName] && errors[fieldName].message
 				}
 			</p>
