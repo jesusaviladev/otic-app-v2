@@ -3,6 +3,7 @@ import { createContext, useState } from 'react';
 const AuthContext = createContext({ default: null });
 
 export const AuthContextProvider = ({ children }) => {
+	//proveedor del contexto para almacenar el usuario en sesión
 	const [user, setUser] = useState(
 		() => sessionStorage.getItem('user') || null
 	);

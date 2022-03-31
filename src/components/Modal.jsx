@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom';
 import { FaTimes } from 'react-icons/fa';
 
 const Modal = ({ children, onClose }) => {
+	//renderizamos modal en un portal
 	return createPortal(
 		<div className="fixed top-0 left-0 w-full min-h-screen bg-black/50 z-50 flex items-center justify-center">
 			<div className="relative bg-slate-700 text-gray-100 w-full h-screen lg:w-3/4 lg:h-auto shadow-lg p-5 lg:rounded">

@@ -7,15 +7,17 @@ import Button from '../components/Button.jsx';
 import { getUsers } from '../services/users.services.js';
 import { createRequest } from '../services/requests.services.js'
 import useSession from '../hooks/useSession.js';
-//REVISAR
+// REVISAR
 const RequestsForm = ({ onClose }) => {
-	let { user } = useSession();
+	const { user } = useSession();
 
 	const { token, role } = JSON.parse(user);
 
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
+		//si el usuario es admin, recuperamos las opciones del select
+		
 		if (role === 'admin') {
 			getUsers(token)
 				.then((res) => {
@@ -92,6 +94,7 @@ const RequestsForm = ({ onClose }) => {
 				<fieldset>
 					<legend className="text-xl my-2">Datos del equipo</legend>
 					<Input
+						type="text"
 						fieldName="serial"
 						label="Serial del equipo"
 						register={register}

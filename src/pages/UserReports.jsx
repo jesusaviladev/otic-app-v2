@@ -6,13 +6,10 @@ import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
 import Modal from '../components/Modal.jsx';
 import Button from '../components/Button.jsx';
-import useModal from '../hooks/useModal.js';
 
 const UserReports = () => {
 	const [reports, setReports] = useState([]);
 	const [pending, setPending] = useState(true);
-
-	const { showModal, toggleModal } = useModal();
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
@@ -51,9 +48,6 @@ const UserReports = () => {
 
 	return (
 		<>
-			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Nuevo reporte</Button>
-			</div>
 			<DataTable
 				title="Mis reportes"
 				columns={columns}
@@ -68,7 +62,6 @@ const UserReports = () => {
 				progressComponent={<TableSpinner />}
 				theme="dark"
 			/>
-			{showModal && <Modal onClose={toggleModal}> Modal reportes</Modal>}
 		</>
 	);
 };

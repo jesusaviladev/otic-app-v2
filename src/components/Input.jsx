@@ -1,5 +1,6 @@
 const Input = ({
 	fieldName,
+	type = 'text',
 	label,
 	register,
 	errors,
@@ -13,7 +14,7 @@ const Input = ({
 		<div className="mb-2">
 			<label htmlFor={fieldName}>{label}</label>
 			<input
-				type="text"
+				type={type}
 				placeholder={placeholder}
 				id={fieldName}
 				className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
