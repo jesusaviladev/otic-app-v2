@@ -40,3 +40,14 @@ export const getUserReports = (token, id) => {
 		},
 	});
 };
+
+export const createUser = (token, data) => {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/users`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+		data: data
+	})
+} 

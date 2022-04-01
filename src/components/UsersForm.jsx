@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { createUser } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
 import Input from '../components/Input.jsx';
 import SelectInput from '../components/SelectInput.jsx'
@@ -6,6 +8,9 @@ import PasswordField from '../components/PasswordField.jsx'
 import Button from '../components/Button.jsx';
 
 const UsersForm = ({ onClose }) => {
+
+	const [ formError, setFormError ] = useState(false)
+
 	const { user } = useSession();
 
 	const { token, role } = JSON.parse(user);
@@ -13,17 +18,42 @@ const UsersForm = ({ onClose }) => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		watch,
-		formState: { errors },
+		setError,
+		formState: { errors, isSubmitting },
 	} = useForm();
 
 	const onSubmit = (values) => {
-		console.log(values)
+		
+		createUser(token, values)
+		.then(res => {
+			console.log(res.data)
+			reset()
+		})
+		.catch(err => {
+
+			if(err.response){
+				const { errors } = err.response.data
+
+				errors.map(error => {
+					setError(error.param, {
+						type: 'server',
+						message: error.msg
+					})
+				})
+			}
+			else {
+
+				setFormError({ message: 'Parece que algo va mal, por favor intente más tarde.' })
+			}
+		})
 	}
 
 	return (
 		<>
 			<h2>Crear nuevo usuario</h2>
+			{formError && formError.message}
 			<form onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						type="text"
@@ -34,7 +64,15 @@ const UsersForm = ({ onClose }) => {
 						placeholder="Ingresa el nombre del usuario"
 						isRequired={true}
 					/>
-					<PasswordField
+					<Input
+						type="password"
+						fieldName="password"
+						label="Contraseña"
+						register={register}
+						errors={errors}
+						placeholder="Ingresa una contraseña (minimo 6 caracteres)"
+						isRequired={true}
+						minimLength={6}
 					/>
 					<Input
 						type="text"
@@ -93,7 +131,7 @@ const UsersForm = ({ onClose }) => {
 					<button type="button" onClick={onClose} className="mr-4">
 						Cancelar
 					</button>
-					<Button>Agregar</Button>
+					<Button disabled={!!isSubmitting}>Agregar</Button>
 				</div>
 			</form>
 		</>

@@ -66,7 +66,7 @@ const RequestsForm = ({ onClose }) => {
 
 	return (
 		<>
-			<h2 className="text-3xl font-bold mt-12 mb-4">Crear nueva solicitud</h2>
+			<h2 className="text-2xl font-bold my-2">Crear nueva solicitud</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<fieldset>
 					<legend className="text-xl my-2">Datos de la solicitud</legend>

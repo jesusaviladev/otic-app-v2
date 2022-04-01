@@ -1,6 +1,11 @@
 const ReportsForm = () => {
 	return (
-		<h1>Nuevo reporte</h1>
+		<>
+			<h2>Nuevo reporte</h2>
+			<form>
+				
+			</form>
+		</>
 		)
 }
 

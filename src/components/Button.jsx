@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Button = ({ children, href, onClick }) => {
+const Button = ({ children, href, onClick, disabled = false }) => {
 
 	if(href){
 		return (
@@ -14,6 +14,7 @@ const Button = ({ children, href, onClick }) => {
 
 	return (
 		<button
+		disabled={disabled}
 		onClick={onClick} 
 		className="px-6 py-2 rounded bg-red-600 font-medium rounded hover:bg-red-700">
 			{children}

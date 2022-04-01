@@ -25,11 +25,11 @@ const Input = ({
 					},
 					maxLength: {
 						value: maximLength,
-						message: `El valor debe ser mayor a ${maximLength} caracteres`,
+						message: `El valor no debe ser mayor a ${maximLength} caracteres`,
 					},
 					minLength: {
 						value: minimLength,
-						message: `El valor debe ser menor a ${minimLength} caracteres`,
+						message: `El valor no debe ser menor de ${minimLength} caracteres`,
 					},
 				})}
 			/>
