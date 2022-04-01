@@ -16,7 +16,7 @@ const RequestsForm = ({ onClose }) => {
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
-		//si el usuario es admin, recuperamos las opciones del select
+		// si el usuario es admin, recuperamos las opciones del select
 		
 		if (role === 'admin') {
 			getUsers(token)
@@ -66,10 +66,10 @@ const RequestsForm = ({ onClose }) => {
 
 	return (
 		<>
-			<h2 className="text-2xl font-bold my-2">Crear nueva solicitud</h2>
+			<h2 className="text-2xl font-bold my-2 text-center">Crear nueva solicitud</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<fieldset>
-					<legend className="text-xl my-2">Datos de la solicitud</legend>
+					<legend className="text-lg my-2 text-center">Datos de la solicitud</legend>
 
 					{
 						role === 'admin' && 
@@ -78,6 +78,7 @@ const RequestsForm = ({ onClose }) => {
 						register={register}
 						errors={errors}
 						label="Asignar un usuario (opcional)"
+						helper="No seleccionar para no asignar ningún usuario"
 						options={users}
 						/>
 					}
@@ -92,7 +93,7 @@ const RequestsForm = ({ onClose }) => {
 					/>
 				</fieldset>
 				<fieldset>
-					<legend className="text-xl my-2">Datos del equipo</legend>
+					<legend className="text-lg my-2 text-center">Datos del equipo</legend>
 					<Input
 						type="text"
 						fieldName="serial"
@@ -103,7 +104,7 @@ const RequestsForm = ({ onClose }) => {
 						isRequired={true}
 					/>
 				</fieldset>
-				<div className="flex justify-end my-2">
+				<div className="flex justify-end my-6">
 					<button type="button" onClick={onClose} className="mr-4">
 						Cancelar
 					</button>

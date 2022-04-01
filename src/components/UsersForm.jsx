@@ -1,79 +1,78 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createUser } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
 import Input from '../components/Input.jsx';
-import SelectInput from '../components/SelectInput.jsx'
-import PasswordField from '../components/PasswordField.jsx'
+import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
 
 const UsersForm = ({ onClose }) => {
-
-	const [ formError, setFormError ] = useState(false)
+	const [formError, setFormError] = useState(false);
 
 	const { user } = useSession();
 
-	const { token, role } = JSON.parse(user);
+	const { token } = JSON.parse(user);
 
 	const {
 		register,
 		handleSubmit,
 		reset,
-		watch,
 		setError,
 		formState: { errors, isSubmitting },
 	} = useForm();
 
 	const onSubmit = (values) => {
-		
 		createUser(token, values)
-		.then(res => {
-			console.log(res.data)
-			reset()
-		})
-		.catch(err => {
+			.then((res) => {
+				console.log(res.data);
+				reset();
+			})
+			.catch((err) => {
+				if (err.response) {
+					const { errors } = err.response.data;
 
-			if(err.response){
-				const { errors } = err.response.data
-
-				errors.map(error => {
-					setError(error.param, {
-						type: 'server',
-						message: error.msg
-					})
-				})
-			}
-			else {
-
-				setFormError({ message: 'Parece que algo va mal, por favor intente más tarde.' })
-			}
-		})
-	}
+					errors.forEach((error) => {
+						setError(error.param, {
+							type: 'server',
+							message: error.msg,
+						});
+					});
+				} else {
+					setFormError({
+						message: 'Parece que algo va mal, por favor intente más tarde.',
+					});
+				}
+			});
+	};
 
 	return (
 		<>
-			<h2>Crear nuevo usuario</h2>
+			<h2 className="text-2xl font-bold my-2 text-center">
+				Crear nuevo usuario
+			</h2>
 			{formError && formError.message}
 			<form onSubmit={handleSubmit(onSubmit)}>
-					<Input
-						type="text"
-						fieldName="username"
-						label="Nombre de usuario"
-						register={register}
-						errors={errors}
-						placeholder="Ingresa el nombre del usuario"
-						isRequired={true}
-					/>
-					<Input
-						type="password"
-						fieldName="password"
-						label="Contraseña"
-						register={register}
-						errors={errors}
-						placeholder="Ingresa una contraseña (minimo 6 caracteres)"
-						isRequired={true}
-						minimLength={6}
-					/>
+				<Input
+					type="text"
+					fieldName="username"
+					label="Nombre de usuario"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa el nombre del usuario"
+					isRequired={true}
+				/>
+				<Input
+					type="password"
+					fieldName="password"
+					label="Contraseña"
+					helper="Mínimo 6 caracteres, sensible a mayúsculas"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa una contraseña"
+					isRequired={true}
+					minimLength={6}
+				/>
+				<div className="grid md:gap-4 md:grid-cols-2">
 					<Input
 						type="text"
 						fieldName="name"
@@ -92,46 +91,50 @@ const UsersForm = ({ onClose }) => {
 						placeholder="Ingresa los apellidos"
 						isRequired={true}
 					/>
-					<Input
-						type="text"
-						fieldName="ci"
-						label="Cédula de Identidad"
-						register={register}
-						errors={errors}
-						placeholder="Ej: V-26990863"
-						isRequired={true}
-					/>
-					<Input
-						type="text"
-						fieldName="telephone"
-						label="Teléfono"
-						register={register}
-						errors={errors}
-						placeholder="Ingresa el teléfono (formato internacional)"
-						isRequired={true}
-					/>
-					<Input
-						type="email"
-						fieldName="email"
-						label="Email"
-						register={register}
-						errors={errors}
-						placeholder="Ingresa un correo electrónico válido"
-						isRequired={true}
-					/>
-					<SelectInput
-						fieldName="role"
-						label="Rol del usuario"
-						register={register}
-						errors={errors}
-						isRequired={true}
-						options={[{ key: 'admin', value: 1}, { key: 'usuario', value: 2}]}
-					/>
-				<div className="flex justify-end my-2">
+				<Input
+					type="text"
+					fieldName="ci"
+					label="Cédula de Identidad"
+					register={register}
+					errors={errors}
+					placeholder="Ej: V-26990863"
+					isRequired={true}
+				/>
+				<Input
+					type="text"
+					fieldName="telephone"
+					label="Teléfono"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa el teléfono (formato internacional)"
+					isRequired={true}
+				/>
+				</div>
+				<Input
+					type="email"
+					fieldName="email"
+					label="Email"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa un correo electrónico válido"
+					isRequired={true}
+				/>
+				<SelectInput
+					fieldName="role"
+					label="Rol del usuario"
+					register={register}
+					errors={errors}
+					isRequired={true}
+					options={[
+						{ key: 'admin', value: 1 },
+						{ key: 'usuario', value: 2 },
+					]}
+				/>
+				<div className="flex justify-end my-6">
 					<button type="button" onClick={onClose} className="mr-4">
 						Cancelar
 					</button>
-					<Button disabled={!!isSubmitting}>Agregar</Button>
+					<Button disabled={isSubmitting}>Agregar</Button>
 				</div>
 			</form>
 		</>

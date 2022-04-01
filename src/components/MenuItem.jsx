@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 const MenuItem = ({ title, icon, route, children }) => {
-	//item de menu
+	// item de menu
 	const [open, setOpen] = useState(false);
 
 	const link = route || '/#';

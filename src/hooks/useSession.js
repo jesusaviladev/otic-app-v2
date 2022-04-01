@@ -4,7 +4,7 @@ import login from '../services/login.services.js';
 import AuthContext from '../context/AuthContext.jsx';
 
 const useSession = () => {
-	//hook para iniciar sesión, cerrar sesión y recuperar el usuario en sesión
+	// hook para iniciar sesión, cerrar sesión y recuperar el usuario en sesión
 	const { user, setUser } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
