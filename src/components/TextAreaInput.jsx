@@ -5,12 +5,17 @@ const TextAreaInput = ({
 	register,
 	errors,
 	placeholder,
-	isRequired
+	isRequired,
 }) => {
 	return (
 		// Text area
 		<div className="mb-2">
-			<label htmlFor={fieldName} className="block mb-2 text-sm font-medium text-gray-300">{label}</label>
+			<label
+				htmlFor={fieldName}
+				className="block mb-2 text-sm font-medium text-gray-300"
+			>
+				{label}
+			</label>
 			<textarea
 				placeholder={placeholder}
 				id={fieldName}
@@ -19,7 +24,7 @@ const TextAreaInput = ({
 					required: {
 						value: isRequired,
 						message: 'Este campo es requerido',
-					}
+					},
 				})}
 			/>
 			<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{helper}</p>
@@ -33,4 +38,4 @@ const TextAreaInput = ({
 	);
 };
 
-export default TextAreaInput
+export default TextAreaInput;

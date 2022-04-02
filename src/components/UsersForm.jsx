@@ -5,13 +5,15 @@ import useSession from '../hooks/useSession.js';
 import Input from '../components/Input.jsx';
 import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
+import Toast from '../components/Toast.jsx';
 
-const UsersForm = ({ onClose }) => {
-	const [formError, setFormError] = useState(false);
-
+const UsersForm = () => {
 	const { user } = useSession();
 
 	const { token } = JSON.parse(user);
+
+	const [formError, setFormError] = useState(false);
+	const [formSuccess, setFormSuccess] = useState(false);
 
 	const {
 		register,
@@ -26,6 +28,7 @@ const UsersForm = ({ onClose }) => {
 			.then((res) => {
 				console.log(res.data);
 				reset();
+				setFormSuccess(true);
 			})
 			.catch((err) => {
 				if (err.response) {
@@ -47,10 +50,12 @@ const UsersForm = ({ onClose }) => {
 
 	return (
 		<>
-			<h2 className="text-2xl font-bold my-2 text-center">
+			{formSuccess && <Toast message="Registrado correctamente" />}
+			{formError && <Toast type="danger" message={formError.message} />}
+
+			<h2 className="text-2xl font-bold my-4 text-center">
 				Crear nuevo usuario
 			</h2>
-			{formError && formError.message}
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					type="text"
@@ -91,24 +96,24 @@ const UsersForm = ({ onClose }) => {
 						placeholder="Ingresa los apellidos"
 						isRequired={true}
 					/>
-				<Input
-					type="text"
-					fieldName="ci"
-					label="Cédula de Identidad"
-					register={register}
-					errors={errors}
-					placeholder="Ej: V-26990863"
-					isRequired={true}
-				/>
-				<Input
-					type="text"
-					fieldName="telephone"
-					label="Teléfono"
-					register={register}
-					errors={errors}
-					placeholder="Ingresa el teléfono (formato internacional)"
-					isRequired={true}
-				/>
+					<Input
+						type="text"
+						fieldName="ci"
+						label="Cédula de Identidad"
+						register={register}
+						errors={errors}
+						placeholder="Ej: V-26990863"
+						isRequired={true}
+					/>
+					<Input
+						type="text"
+						fieldName="telephone"
+						label="Teléfono"
+						register={register}
+						errors={errors}
+						placeholder="Ingresa el teléfono (formato internacional)"
+						isRequired={true}
+					/>
 				</div>
 				<Input
 					type="email"
@@ -131,9 +136,6 @@ const UsersForm = ({ onClose }) => {
 					]}
 				/>
 				<div className="flex justify-end my-6">
-					<button type="button" onClick={onClose} className="mr-4">
-						Cancelar
-					</button>
 					<Button disabled={isSubmitting}>Agregar</Button>
 				</div>
 			</form>

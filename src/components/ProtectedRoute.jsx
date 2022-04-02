@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children, redirectPath, role }) => {
 
 	// si no hay un usuario, redireccionamos
 	if (!user) return <Navigate to={redirectPath} replace />;
-	
+
 	// si el usuario no tiene el rol adecuado, redireccionamos
 	if (role && user.role !== role) return <Navigate to={redirectPath} />;
 

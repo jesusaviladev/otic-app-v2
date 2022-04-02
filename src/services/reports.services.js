@@ -16,8 +16,8 @@ export const createReport = (token, data) => {
 		method: 'post',
 		url: `${API_URL}/reports`,
 		headers: {
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
 		},
-		data: data
-	})
-} 
+		data: data,
+	});
+};

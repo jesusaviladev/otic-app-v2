@@ -8,12 +8,17 @@ const Input = ({
 	placeholder,
 	isRequired,
 	maximLength,
-	minimLength
+	minimLength,
 }) => {
 	return (
 		// Input de texto
 		<div className="mb-2">
-			<label htmlFor={fieldName} className="block mb-2 text-sm font-medium text-gray-300">{label}</label>
+			<label
+				htmlFor={fieldName}
+				className="block mb-2 text-sm font-medium text-gray-300"
+			>
+				{label}
+			</label>
 			<input
 				type={type}
 				placeholder={placeholder}

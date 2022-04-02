@@ -8,12 +8,10 @@ const Modal = ({ children, onClose }) => {
 			<div className="bg-gray-800 text-gray-100 w-full h-full lg:w-3/4 lg:h-5/6 shadow-lg lg:rounded-md flex flex-col divide-y divide-gray-500">
 				<div className="flex justify-end">
 					<button onClick={onClose} className="p-5">
-						<FaTimes className="w-6 h-6 hover:text-gray-200"/>
+						<FaTimes className="w-6 h-6 hover:text-gray-200" />
 					</button>
 				</div>
-				<div className="p-5 overflow-y-auto">
-					{children}
-				</div>
+				<div className="p-5 overflow-y-auto">{children}</div>
 			</div>
 		</div>,
 		document.getElementById('modal')

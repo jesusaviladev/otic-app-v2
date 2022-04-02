@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Spinner from '../components/Spinner.jsx';
 import PasswordField from '../components/PasswordField.jsx';
 import useSession from '../hooks/useSession.js';
-import ErrorMessage from '../components/ErrorMessage.jsx'
+import ErrorMessage from '../components/ErrorMessage.jsx';
 
 const Login = () => {
 	// refactorizar
@@ -27,7 +27,7 @@ const Login = () => {
 				<h2 className="text-center text-2xl font-bold">Iniciar sesión</h2>
 			</div>
 			<form action="#" onSubmit={handleSubmit}>
-				{error && <ErrorMessage message={error.message}/>}
+				{error && <ErrorMessage message={error.message} />}
 				<div className="flex flex-col justify-center mb-2">
 					<div>
 						<label htmlFor="username"></label>

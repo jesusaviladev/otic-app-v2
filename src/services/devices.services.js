@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { API_URL } from './config.js';
 
 export const getDevices = (token) => {
@@ -9,4 +9,4 @@ export const getDevices = (token) => {
 			Authorization: `Bearer ${token}`,
 		},
 	});
-}
+};

@@ -1,23 +1,21 @@
 import { useState, useEffect } from 'react';
 import { getRequests } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
-import useModal from '../hooks/useModal.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import { FaEdit, FaTrash } from 'react-icons/fa';
-import Modal from '../components/Modal.jsx';
-import Button from '../components/Button.jsx';
-import RequestsForm from '../components/RequestsForm.jsx'
+import { FaEdit, FaTrash, FaPlus, FaClipboardList } from 'react-icons/fa';
+import RequestsForm from '../components/RequestsForm.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Tab from '../components/Tab.jsx';
 
 const Requests = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
+	const [selectedTab, setSelectedTab] = useState('Solicitudes');
 
 	const { user } = useSession();
 	const { token } = JSON.parse(user);
-
-	const { showModal, toggleModal } = useModal();
 
 	useEffect(() => {
 		getRequests(token)
@@ -81,27 +79,40 @@ const Requests = () => {
 
 	return (
 		<>
-			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Nueva solicitud</Button>
-			</div>
-			<DataTable
-				title="Solicitudes"
-				columns={columns}
-				data={requests}
-				pagination
-				paginationComponentOptions={paginationComponentOptions}
-				highlightOnHover
-				pointerOnHover
-				progressPending={pending}
-				persistTableHead
-				noDataComponent={<NoDataComponent />}
-				progressComponent={<TableSpinner />}
-				theme="dark"
-			/>
-
-			{showModal && <Modal onClose={toggleModal}>
-				<RequestsForm onClose={toggleModal}/>
-			</Modal>}
+			<Tabs
+				tabs={[
+					{
+						icon: <FaClipboardList />,
+						label: 'Solicitudes',
+					},
+					{
+						icon: <FaPlus />,
+						label: 'Nueva solicitud',
+					},
+				]}
+				selected={selectedTab}
+				setSelected={setSelectedTab}
+			>
+				<Tab isSelected={selectedTab === 'Solicitudes'}>
+					<DataTable
+						title="Solicitudes"
+						columns={columns}
+						data={requests}
+						pagination
+						paginationComponentOptions={paginationComponentOptions}
+						highlightOnHover
+						pointerOnHover
+						progressPending={pending}
+						persistTableHead
+						noDataComponent={<NoDataComponent />}
+						progressComponent={<TableSpinner />}
+						theme="dark"
+					/>
+				</Tab>
+				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
+					<RequestsForm />
+				</Tab>
+			</Tabs>
 		</>
 	);
 };

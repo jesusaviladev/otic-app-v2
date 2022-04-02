@@ -48,6 +48,6 @@ export const createUser = (token, data) => {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
-		data: data
-	})
-} 
+		data: data,
+	});
+};

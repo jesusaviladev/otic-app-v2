@@ -27,15 +27,12 @@ const useSession = () => {
 				}
 			})
 			.catch((err) => {
-
 				setLoading(false);
-				if(err.response){
-					const { error } = err.response.data
+				if (err.response) {
+					const { error } = err.response.data;
 					setError({ message: error });
-				}
-
-				else {
-					setError({ message: 'Parece que algo va mal, intentalo más tarde' })
+				} else {
+					setError({ message: 'Parece que algo va mal, intentalo más tarde' });
 				}
 			});
 	});

@@ -5,10 +5,10 @@ import TextAreaInput from '../components/TextAreaInput.jsx';
 import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
 import { getUsers } from '../services/users.services.js';
-import { createRequest } from '../services/requests.services.js'
+import { createRequest } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
 // REVISAR
-const RequestsForm = ({ onClose }) => {
+const RequestsForm = () => {
 	const { user } = useSession();
 
 	const { token, role } = JSON.parse(user);
@@ -17,19 +17,18 @@ const RequestsForm = ({ onClose }) => {
 
 	useEffect(() => {
 		// si el usuario es admin, recuperamos las opciones del select
-		
+
 		if (role === 'admin') {
 			getUsers(token)
 				.then((res) => {
-
 					const users = res.data.users
-					.filter(user => user.role_id !== 1)
-					.map(user => {
-						return { 
-							value: user.id, 
-							key: `${user.name} ${user.surname}`
-						}
-					})
+						.filter((user) => user.role_id !== 1)
+						.map((user) => {
+							return {
+								value: user.id,
+								key: `${user.name} ${user.surname}`,
+							};
+						});
 
 					setUsers(users);
 				})
@@ -45,8 +44,7 @@ const RequestsForm = ({ onClose }) => {
 	} = useForm();
 
 	const onSubmit = (values) => {
-
-		const { description, user_id, serial } = values
+		const { description, user_id, serial } = values;
 
 		const data = {
 			description,
@@ -55,33 +53,36 @@ const RequestsForm = ({ onClose }) => {
 				exists: true,
 				serial,
 				type: 'Escritorio',
-				name: 'PC-VIT'
-			}
-		}
+				name: 'PC-VIT',
+			},
+		};
 
 		createRequest(token, data)
-		.then(res => console.log(res))
-		.catch(err => console.dir(err))
+			.then((res) => console.log(res))
+			.catch((err) => console.dir(err));
 	};
 
 	return (
 		<>
-			<h2 className="text-2xl font-bold my-2 text-center">Crear nueva solicitud</h2>
+			<h2 className="text-2xl font-bold my-4 text-center">
+				Crear nueva solicitud
+			</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<fieldset>
-					<legend className="text-lg my-2 text-center">Datos de la solicitud</legend>
+					<legend className="text-lg my-2 text-center">
+						Datos de la solicitud
+					</legend>
 
-					{
-						role === 'admin' && 
+					{role === 'admin' && (
 						<SelectInput
-						fieldName="user_id"
-						register={register}
-						errors={errors}
-						label="Asignar un usuario (opcional)"
-						helper="No seleccionar para no asignar ningún usuario"
-						options={users}
+							fieldName="user_id"
+							register={register}
+							errors={errors}
+							label="Asignar un usuario (opcional)"
+							helper="No seleccionar para no asignar ningún usuario"
+							options={users}
 						/>
-					}
+					)}
 
 					<TextAreaInput
 						fieldName="description"
@@ -105,9 +106,6 @@ const RequestsForm = ({ onClose }) => {
 					/>
 				</fieldset>
 				<div className="flex justify-end my-6">
-					<button type="button" onClick={onClose} className="mr-4">
-						Cancelar
-					</button>
 					<Button>Agregar</Button>
 				</div>
 			</form>

@@ -12,3 +12,7 @@ body {
 	@apply text-gray-100;
 	font-family: 'Roboto', sans-serif;
 }
+
+.active {
+	border-bottom: 2px solid #dc2626;
+}

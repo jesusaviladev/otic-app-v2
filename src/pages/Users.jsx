@@ -4,19 +4,18 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import useModal from '../hooks/useModal.js';
-import Modal from '../components/Modal.jsx';
-import Button from '../components/Button.jsx';
-import UsersForm from '../components/UsersForm.jsx'
+import UsersForm from '../components/UsersForm.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Tab from '../components/Tab.jsx';
+import { FaUser, FaPlus } from 'react-icons/fa';
 
 const Users = () => {
 	const [users, setUsers] = useState([]);
 	const [pending, setPending] = useState(true);
+	const [selectedTab, setSelectedTab] = useState('Usuarios');
 
 	const { user } = useSession();
 	const { token } = JSON.parse(user);
-
-	const { showModal, toggleModal } = useModal();
 
 	useEffect(() => {
 		getUsers(token)
@@ -70,26 +69,40 @@ const Users = () => {
 
 	return (
 		<>
-			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Nuevo usuario</Button>
-			</div>
-			<DataTable
-				title="Usuarios"
-				columns={columns}
-				data={users}
-				pagination
-				paginationComponentOptions={paginationComponentOptions}
-				highlightOnHover
-				pointerOnHover
-				progressPending={pending}
-				persistTableHead
-				noDataComponent={<NoDataComponent />}
-				progressComponent={<TableSpinner />}
-				theme="dark"
-			/>
-			{showModal && <Modal onClose={toggleModal}>
-				<UsersForm onClose={toggleModal}/>
-			</Modal>}
+			<Tabs
+				tabs={[
+					{
+						icon: <FaUser />,
+						label: 'Usuarios',
+					},
+					{
+						icon: <FaPlus />,
+						label: 'Nuevo usuario',
+					},
+				]}
+				selected={selectedTab}
+				setSelected={setSelectedTab}
+			>
+				<Tab isSelected={selectedTab === 'Usuarios'}>
+					<DataTable
+						title="Usuarios"
+						columns={columns}
+						data={users}
+						pagination
+						paginationComponentOptions={paginationComponentOptions}
+						highlightOnHover
+						pointerOnHover
+						progressPending={pending}
+						persistTableHead
+						noDataComponent={<NoDataComponent />}
+						progressComponent={<TableSpinner />}
+						theme="dark"
+					/>
+				</Tab>
+				<Tab isSelected={selectedTab === 'Nuevo usuario'}>
+					<UsersForm />
+				</Tab>
+			</Tabs>
 		</>
 	);
 };

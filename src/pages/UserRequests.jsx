@@ -4,19 +4,18 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import Button from '../components/Button.jsx';
-import RequestsForm from '../components/RequestsForm.jsx'
-import Modal from '../components/Modal.jsx';
-import useModal from '../hooks/useModal.js';
+import RequestsForm from '../components/RequestsForm.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Tab from '../components/Tab.jsx';
+import { FaClipboardList, FaPlus } from 'react-icons/fa';
 
 const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
+	const [selectedTab, setSelectedTab] = useState('Mis solicitudes');
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
-
-	const { showModal, toggleModal } = useModal();
 
 	useEffect(() => {
 		getUserRequests(token, id)
@@ -62,27 +61,40 @@ const UserRequest = () => {
 
 	return (
 		<>
-			<div className="flex justify-end p-3 text-white">
-				<Button onClick={toggleModal}>Nueva solicitud</Button>
-			</div>
-			<DataTable
-				title="Mis solicitudes"
-				columns={columns}
-				data={requests}
-				pagination
-				paginationComponentOptions={paginationComponentOptions}
-				highlightOnHover
-				pointerOnHover
-				progressPending={pending}
-				persistTableHead
-				noDataComponent={<NoDataComponent />}
-				progressComponent={<TableSpinner />}
-				theme="dark"
-			/>
-
-			{showModal && <Modal onClose={toggleModal}>
-				<RequestsForm onClose={toggleModal}/>
-			</Modal>}
+			<Tabs
+				tabs={[
+					{
+						icon: <FaClipboardList />,
+						label: 'Mis solicitudes',
+					},
+					{
+						icon: <FaPlus />,
+						label: 'Nueva solicitud',
+					},
+				]}
+				selected={selectedTab}
+				setSelected={setSelectedTab}
+			>
+				<Tab isSelected={selectedTab === 'Mis solicitudes'}>
+					<DataTable
+						title="Mis solicitudes"
+						columns={columns}
+						data={requests}
+						pagination
+						paginationComponentOptions={paginationComponentOptions}
+						highlightOnHover
+						pointerOnHover
+						progressPending={pending}
+						persistTableHead
+						noDataComponent={<NoDataComponent />}
+						progressComponent={<TableSpinner />}
+						theme="dark"
+					/>
+				</Tab>
+				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
+					<RequestsForm />
+				</Tab>
+			</Tabs>
 		</>
 	);
 };
