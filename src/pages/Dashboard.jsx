@@ -27,14 +27,16 @@ const Dashboard = () => {
 				</Navbar>
 			</Header>
 
-			<main className="lg:flex">
-				<Sidebar
-					show={showMenu}
-					setShow={() => setShowMenu(!showMenu)}
-					items={config}
-				/>
-				<div className="text-gray-100 min-h-screen flex-grow p-4">
-					<Outlet />
+			<main>
+				<div className="flex flex-col lg:flex-row lg:min-h-screen">
+					<Sidebar
+						show={showMenu}
+						setShow={() => setShowMenu(!showMenu)}
+						items={config}
+					/>
+					<div className="flex-grow text-gray-100 p-4">
+						<Outlet />
+					</div>
 				</div>
 			</main>
 		</>
