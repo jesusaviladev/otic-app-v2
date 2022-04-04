@@ -10,3 +10,14 @@ export const getReports = (token) => {
 		},
 	});
 };
+
+export const createReport = (token, data) => {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/reports`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+		data: data,
+	});
+};

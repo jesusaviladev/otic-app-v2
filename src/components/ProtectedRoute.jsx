@@ -1,16 +1,18 @@
 import useSession from '../hooks/useSession.js';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useContext } from 'react'
-import AuthContext from '../context/AuthContext.jsx';
 
 const ProtectedRoute = ({ children, redirectPath, role }) => {
+	// rutas protegidas
+	// recuperamos el usuario en sesión
 	let { user } = useSession();
 
-	user = JSON.parse(user)
+	user = JSON.parse(user);
 
+	// si no hay un usuario, redireccionamos
 	if (!user) return <Navigate to={redirectPath} replace />;
 
-	if(role && user.role !== role) return <Navigate to={redirectPath} />
+	// si el usuario no tiene el rol adecuado, redireccionamos
+	if (role && user.role !== role) return <Navigate to={redirectPath} />;
 
 	return children || <Outlet />;
 };

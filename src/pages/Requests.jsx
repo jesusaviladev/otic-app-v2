@@ -4,14 +4,18 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaClipboardList } from 'react-icons/fa';
+import RequestsForm from '../components/RequestsForm.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Tab from '../components/Tab.jsx';
 
 const Requests = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
+	const [selectedTab, setSelectedTab] = useState('Solicitudes');
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user) 
+	const { token } = JSON.parse(user);
 
 	useEffect(() => {
 		getRequests(token)
@@ -75,20 +79,40 @@ const Requests = () => {
 
 	return (
 		<>
-			<DataTable
-				title="Solicitudes"
-				columns={columns}
-				data={requests}
-				pagination
-				paginationComponentOptions={paginationComponentOptions}
-				highlightOnHover
-				pointerOnHover
-				striped
-				progressPending={pending}
-				persistTableHead
-				noDataComponent={<NoDataComponent />}
-				progressComponent={<TableSpinner />}
-			/>
+			<Tabs
+				tabs={[
+					{
+						icon: <FaClipboardList />,
+						label: 'Solicitudes',
+					},
+					{
+						icon: <FaPlus />,
+						label: 'Nueva solicitud',
+					},
+				]}
+				selected={selectedTab}
+				setSelected={setSelectedTab}
+			>
+				<Tab isSelected={selectedTab === 'Solicitudes'}>
+					<DataTable
+						title="Solicitudes"
+						columns={columns}
+						data={requests}
+						pagination
+						paginationComponentOptions={paginationComponentOptions}
+						highlightOnHover
+						pointerOnHover
+						progressPending={pending}
+						persistTableHead
+						noDataComponent={<NoDataComponent />}
+						progressComponent={<TableSpinner />}
+						theme="dark"
+					/>
+				</Tab>
+				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
+					<RequestsForm />
+				</Tab>
+			</Tabs>
 		</>
 	);
 };

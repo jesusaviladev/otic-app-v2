@@ -4,34 +4,36 @@ import login from '../services/login.services.js';
 import AuthContext from '../context/AuthContext.jsx';
 
 const useSession = () => {
+	// hook para iniciar sesión, cerrar sesión y recuperar el usuario en sesión
 	const { user, setUser } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState(false);
 	const navigate = useNavigate();
 
 	const handleLogin = useCallback((username, password) => {
 		setLoading(true);
 		login(username, password)
 			.then((res) => {
-				const user = res.data
+				const user = res.data;
 				setLoading(false);
-				const userInfo = JSON.stringify(user)
-				setUser(userInfo)
+				const userInfo = JSON.stringify(user);
+				setUser(userInfo);
 				window.sessionStorage.setItem('user', userInfo);
 
-				if(user.role === 'admin'){
+				if (user.role === 'admin') {
 					navigate('/admin', { replace: true });
-				}
-
-				else {
+				} else {
 					navigate('/dashboard', { replace: true });
 				}
-
 			})
-			.catch((error) => {
+			.catch((err) => {
 				setLoading(false);
-				setError(true);
-				console.log(error.response);
+				if (err.response) {
+					const { error } = err.response.data;
+					setError({ message: error });
+				} else {
+					setError({ message: 'Parece que algo va mal, intentalo más tarde' });
+				}
 			});
 	});
 

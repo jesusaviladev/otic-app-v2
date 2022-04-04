@@ -1,20 +1,18 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useSession from '../hooks/useSession.js';
 import Header from '../components/Header.jsx';
 import Banner from '../components/Banner.jsx';
+import Button from '../components/Button.jsx';
 
 const LandingPage = () => {
+	const { user } = useSession();
 
-	let { user } = useSession();
+	if (user) {
+		const { role } = JSON.parse(user);
 
-	if (user){
-		const { role } = JSON.parse(user)
-
-		if(role === 'admin'){
+		if (role === 'admin') {
 			return <Navigate to="/admin" />;
-		}
-
-		else {
+		} else {
 			return <Navigate to="/dashboard" />;
 		}
 	}
@@ -29,9 +27,7 @@ const LandingPage = () => {
 			</h1>
 
 			<div className="flex justify-center itemsc-center p-4">
-				<Link to="/login" className="px-6 py-2 rounded bg-red-600 font-bold">
-					Iniciar sesión
-				</Link>
+				<Button href="/login">Iniciar sesión</Button>
 			</div>
 		</>
 	);

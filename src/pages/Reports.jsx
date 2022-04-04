@@ -10,7 +10,7 @@ const Reports = () => {
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user)
+	const { token } = JSON.parse(user);
 
 	useEffect(() => {
 		getReports(token)
@@ -48,7 +48,6 @@ const Reports = () => {
 		rowsPerPageText: 'Filas por página',
 	};
 
-
 	return (
 		<>
 			<DataTable
@@ -59,11 +58,11 @@ const Reports = () => {
 				paginationComponentOptions={paginationComponentOptions}
 				highlightOnHover
 				pointerOnHover
-				striped
 				progressPending={pending}
 				persistTableHead
 				noDataComponent={<NoDataComponent />}
 				progressComponent={<TableSpinner />}
+				theme="dark"
 			/>
 		</>
 	);

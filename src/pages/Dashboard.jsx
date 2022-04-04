@@ -4,17 +4,17 @@ import Navbar from '../components/Navbar.jsx';
 import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { adminSidebar, userSidebar } from '../config/sidebarConfig.js'
-import useSession from '../hooks/useSession.js'
+import { adminSidebar, userSidebar } from '../config/sidebarConfig.js';
+import useSession from '../hooks/useSession.js';
 
 const Dashboard = () => {
 	const [showMenu, setShowMenu] = useState(false);
 
-	let { user } = useSession()
+	let { user } = useSession();
 
-	user = JSON.parse(user)
+	user = JSON.parse(user);
 
-	const config = user.role === 'admin' ? adminSidebar : userSidebar
+	const config = user.role === 'admin' ? adminSidebar : userSidebar;
 
 	return (
 		<>
@@ -27,14 +27,16 @@ const Dashboard = () => {
 				</Navbar>
 			</Header>
 
-			<main className="bg-gray-100 lg:flex">
-				<Sidebar 
-				show={showMenu} 
-				setShow={() => setShowMenu(!showMenu)} 
-				items={config}
-				/>
-				<div className="text-black min-h-screen flex-grow p-4">
-					<Outlet />
+			<main>
+				<div className="flex flex-col lg:flex-row lg:min-h-screen">
+					<Sidebar
+						show={showMenu}
+						setShow={() => setShowMenu(!showMenu)}
+						items={config}
+					/>
+					<div className="flex-grow text-gray-100 p-4">
+						<Outlet />
+					</div>
 				</div>
 			</main>
 		</>

@@ -4,13 +4,18 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
+import RequestsForm from '../components/RequestsForm.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Tab from '../components/Tab.jsx';
+import { FaClipboardList, FaPlus } from 'react-icons/fa';
 
 const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
+	const [selectedTab, setSelectedTab] = useState('Mis solicitudes');
 
 	const { user } = useSession();
-	const { token, id } = JSON.parse(user) 
+	const { token, id } = JSON.parse(user);
 
 	useEffect(() => {
 		getUserRequests(token, id)
@@ -23,7 +28,6 @@ const UserRequest = () => {
 				console.log(error);
 			});
 	}, []);
-
 
 	const columns = [
 		{
@@ -57,22 +61,42 @@ const UserRequest = () => {
 
 	return (
 		<>
-			<DataTable
-				title="Mis solicitudes"
-				columns={columns}
-				data={requests}
-				pagination
-				paginationComponentOptions={paginationComponentOptions}
-				highlightOnHover
-				pointerOnHover
-				striped
-				progressPending={pending}
-				persistTableHead
-				noDataComponent={<NoDataComponent />}
-				progressComponent={<TableSpinner />}
-			/>
+			<Tabs
+				tabs={[
+					{
+						icon: <FaClipboardList />,
+						label: 'Mis solicitudes',
+					},
+					{
+						icon: <FaPlus />,
+						label: 'Nueva solicitud',
+					},
+				]}
+				selected={selectedTab}
+				setSelected={setSelectedTab}
+			>
+				<Tab isSelected={selectedTab === 'Mis solicitudes'}>
+					<DataTable
+						title="Mis solicitudes"
+						columns={columns}
+						data={requests}
+						pagination
+						paginationComponentOptions={paginationComponentOptions}
+						highlightOnHover
+						pointerOnHover
+						progressPending={pending}
+						persistTableHead
+						noDataComponent={<NoDataComponent />}
+						progressComponent={<TableSpinner />}
+						theme="dark"
+					/>
+				</Tab>
+				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
+					<RequestsForm />
+				</Tab>
+			</Tabs>
 		</>
-		)
-}
+	);
+};
 
-export default UserRequest
+export default UserRequest;

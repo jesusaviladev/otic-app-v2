@@ -10,3 +10,14 @@ export const getRequests = (token) => {
 		},
 	});
 };
+
+export const createRequest = (token, data) => {
+	return axios({
+		method: 'post',
+		url: `${API_URL}/requests`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+		data: data,
+	});
+};

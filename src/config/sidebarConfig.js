@@ -10,51 +10,49 @@ export const adminSidebar = [
 	{
 		title: 'Inicio',
 		route: '/admin/',
-		icon: FaHome()
+		icon: FaHome(),
 	},
 	{
 		title: 'Solicitudes',
 		route: '/admin/solicitudes',
-		icon: FaClipboardList()
+		icon: FaClipboardList(),
 	},
 	{
 		title: 'Reportes',
 		route: '/admin/reportes',
-		icon: FaClipboardCheck()
+		icon: FaClipboardCheck(),
 	},
 	{
 		title: 'Equipos',
 		route: '/admin/equipos',
-		icon: FaDesktop()
+		icon: FaDesktop(),
 	},
 	{
 		title: 'Usuarios',
 		route: '/admin/usuarios',
-		icon: FaUser()
+		icon: FaUser(),
 	},
-
-]
+];
 
 export const userSidebar = [
 	{
 		title: 'Inicio',
 		route: '/dashboard/',
-		icon: FaHome()
+		icon: FaHome(),
 	},
 	{
 		title: 'Mis solicitudes',
 		route: '/dashboard/solicitudes',
-		icon: FaClipboardList()
+		icon: FaClipboardList(),
 	},
 	{
 		title: 'Mis reportes',
 		route: '/dashboard/reportes',
-		icon: FaClipboardCheck()
+		icon: FaClipboardCheck(),
 	},
 	{
 		title: 'Equipos',
 		route: '/dashboard/equipos',
-		icon: FaDesktop()
+		icon: FaDesktop(),
 	},
-]
-
+];

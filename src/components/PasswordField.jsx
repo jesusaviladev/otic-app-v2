@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 
 const PasswordField = ({ onChange, value }) => {
+	// input de contraseña con estado visible/invisible
 	const [visible, setVisible] = useState(false);
 
 	return (
