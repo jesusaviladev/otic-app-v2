@@ -44,18 +44,21 @@ const Requests = () => {
 			selector: (row) => row.date,
 		},
 		{
-			name: 'Status',
-			selector: (row) => row.status_id,
-			width: '100px',
+			name: 'Estado',
+			selector: (row) => row.status.description,
+			width: '150px',
+			style: {
+				textTransform: 'capitalize',
+			},
 		},
 		{
 			name: 'Usuario',
-			selector: (row) => row.user_id,
-			width: '100px',
+			selector: (row) => row.user.username,
 		},
 		{
 			name: 'Editar',
 			button: true,
+			width: '70px',
 			cell: () => (
 				<button>
 					<FaEdit />
@@ -65,6 +68,7 @@ const Requests = () => {
 		{
 			name: 'Eliminar',
 			button: true,
+			width: '70px',
 			cell: () => (
 				<button>
 					<FaTrash />

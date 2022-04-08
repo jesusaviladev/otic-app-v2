@@ -26,7 +26,6 @@ const UsersForm = () => {
 	const onSubmit = (values) => {
 		createUser(token, values)
 			.then((res) => {
-				console.log(res.data);
 				reset();
 				setFormSuccess(true);
 			})
@@ -50,11 +49,19 @@ const UsersForm = () => {
 
 	return (
 		<>
-			{formSuccess && <Toast message="Registrado correctamente" 
-				onClick={() => setFormSuccess(false)}/>}
-			{formError && <Toast type="danger" 
-			message={formError.message}
-			onClick={() => setFormError(false)} />}
+			{formSuccess && (
+				<Toast
+					message="Registrado correctamente"
+					onClick={() => setFormSuccess(false)}
+				/>
+			)}
+			{formError && (
+				<Toast
+					type="danger"
+					message={formError.message}
+					onClick={() => setFormError(false)}
+				/>
+			)}
 
 			<h2 className="text-2xl font-bold my-4 text-center">
 				Crear nuevo usuario

@@ -63,7 +63,10 @@ const Users = () => {
 		},
 		{
 			name: 'Rol',
-			selector: (row) => row.role_id,
+			selector: (row) => row.role.name,
+			style: {
+				textTransform: 'capitalize',
+			},
 		},
 	];
 

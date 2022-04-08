@@ -8,7 +8,7 @@ const Sidebar = ({ show, setShow, items }) => {
 	return (
 		<div
 			className={
-				`bg-black text-gray-100 absolute z-20 w-full h-full lg:h-auto lg:static lg:max-w-xs lg:translate-x-0 transition-transform duration-300 ` +
+				`bg-black text-gray-100 absolute z-50 w-full h-full lg:h-auto lg:static lg:max-w-xs lg:translate-x-0 transition-transform duration-300 ` +
 				className
 			}
 			onClick={() => setShow()}

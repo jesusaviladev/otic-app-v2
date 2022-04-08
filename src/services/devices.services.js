@@ -10,3 +10,13 @@ export const getDevices = (token) => {
 		},
 	});
 };
+
+export const getDeviceBySerial = (token, serial) => {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/devices/${serial}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};

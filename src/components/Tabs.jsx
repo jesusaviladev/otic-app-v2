@@ -11,7 +11,7 @@ const Tabs = ({ children, tabs, selected, setSelected }) => {
 					return (
 						<li key={tab.label} className="mr-2">
 							<button
-								className={`flex items-center p-3 border-b-2 border-transparent lg:hover:border-gray-100 lg:hover:text-gray-100 ${active}`}
+								className={`flex items-center p-2 md:p-3 border-b-2 border-transparent lg:hover:border-gray-100 lg:hover:text-gray-100 ${active}`}
 								onClick={() => setSelected(tab.label)}
 							>
 								{tab.icon}
