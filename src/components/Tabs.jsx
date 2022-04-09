@@ -1,6 +1,6 @@
 const Tabs = ({ children, tabs, selected, setSelected }) => {
 	return (
-		<div>
+		<>
 			<ul className="border-b border-gray-700 flex flex-wrap mb-2 font-medium text-center text-gray-300">
 				{tabs.map((tab) => {
 					const active =
@@ -22,7 +22,7 @@ const Tabs = ({ children, tabs, selected, setSelected }) => {
 				})}
 			</ul>
 			{children}
-		</div>
+		</>
 	);
 };
 

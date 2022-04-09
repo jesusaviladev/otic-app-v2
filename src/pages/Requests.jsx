@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getRequests } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
+import useModal from '../hooks/useModal.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -8,11 +10,14 @@ import { FaEdit, FaTrash, FaPlus, FaClipboardList } from 'react-icons/fa';
 import RequestsForm from '../components/RequestsForm.jsx';
 import Tabs from '../components/Tabs.jsx';
 import Tab from '../components/Tab.jsx';
+import ConfirmModal from '../components/ConfirmModal.jsx';
 
 const Requests = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Solicitudes');
+
+	const { showModal, toggleModal } = useModal()
 
 	const { user } = useSession();
 	const { token } = JSON.parse(user);
@@ -32,8 +37,9 @@ const Requests = () => {
 	const columns = [
 		{
 			name: 'ID',
+			sortable: true,
+			width: '70px',
 			selector: (row) => row.id,
-			width: '50px',
 		},
 		{
 			name: 'Descripción',
@@ -41,37 +47,36 @@ const Requests = () => {
 		},
 		{
 			name: 'Fecha',
+			sortable: true,
 			selector: (row) => row.date,
 		},
 		{
 			name: 'Estado',
 			selector: (row) => row.status.description,
-			width: '150px',
 			style: {
 				textTransform: 'capitalize',
 			},
 		},
 		{
 			name: 'Usuario',
+			sortable: true,
 			selector: (row) => row.user.username,
 		},
 		{
 			name: 'Editar',
 			button: true,
-			width: '70px',
-			cell: () => (
-				<button>
-					<FaEdit />
-				</button>
+			cell: (row) => (
+				<Link to={`/admin/solicitudes/${row.id}`}>
+					<FaEdit className="w-5 h-5 text-green-500"/>
+				</Link>
 			),
 		},
 		{
 			name: 'Eliminar',
 			button: true,
-			width: '70px',
 			cell: () => (
-				<button>
-					<FaTrash />
+				<button onClick={toggleModal}>
+					<FaTrash className="w-5 h-5 text-red-600"/>
 				</button>
 			),
 		},
@@ -116,6 +121,12 @@ const Requests = () => {
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
 					<RequestsForm />
 				</Tab>
+			{showModal && 
+
+				<ConfirmModal onClose={toggleModal} message="¿Desea eliminar esta solicitud?">
+					Solicitud Eliminar
+				</ConfirmModal>
+			}
 			</Tabs>
 		</>
 	);

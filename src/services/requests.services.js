@@ -11,6 +11,16 @@ export const getRequests = (token) => {
 	});
 };
 
+export const getRequestById = (token, id) => {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/requests/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	})
+}
+
 export const createRequest = (token, data) => {
 	return axios({
 		method: 'post',

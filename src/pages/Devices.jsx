@@ -31,15 +31,15 @@ const Devices = () => {
 			width: '50px',
 		},
 		{
-			name: 'serial',
+			name: 'Serial',
 			selector: (row) => row.serial,
 		},
 		{
-			name: 'type',
+			name: 'Tipo',
 			selector: (row) => row.type,
 		},
 		{
-			name: 'name',
+			name: 'Nombre',
 			selector: (row) => row.name,
 		},
 	];
