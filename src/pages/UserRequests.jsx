@@ -33,7 +33,7 @@ const UserRequest = () => {
 		{
 			name: 'ID',
 			selector: (row) => row.id,
-			width: '30px',
+			width: '70px',
 		},
 		{
 			name: 'Descripción',
@@ -46,10 +46,6 @@ const UserRequest = () => {
 		{
 			name: 'Status',
 			selector: (row) => row.status_id,
-		},
-		{
-			name: 'Usuario',
-			selector: (row) => row.user_id,
 		},
 	];
 

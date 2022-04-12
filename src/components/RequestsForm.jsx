@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../components/Input.jsx';
 import TextAreaInput from '../components/TextAreaInput.jsx';
@@ -83,7 +83,6 @@ const RequestsForm = () => {
 	}, [watchSerial]);
 
 	const onSubmit = (values) => {
-		console.log(values);
 		const { description, user_id, serial, type, name } = values;
 
 		const data = {

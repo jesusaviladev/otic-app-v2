@@ -17,7 +17,7 @@ const Requests = () => {
 	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Solicitudes');
 
-	const { showModal, toggleModal } = useModal()
+	const { showModal, toggleModal } = useModal();
 
 	const { user } = useSession();
 	const { token } = JSON.parse(user);
@@ -67,7 +67,7 @@ const Requests = () => {
 			button: true,
 			cell: (row) => (
 				<Link to={`/admin/solicitudes/${row.id}`}>
-					<FaEdit className="w-5 h-5 text-green-500"/>
+					<FaEdit className="w-5 h-5 text-green-500" />
 				</Link>
 			),
 		},
@@ -76,7 +76,7 @@ const Requests = () => {
 			button: true,
 			cell: () => (
 				<button onClick={toggleModal}>
-					<FaTrash className="w-5 h-5 text-red-600"/>
+					<FaTrash className="w-5 h-5 text-red-600" />
 				</button>
 			),
 		},
@@ -121,12 +121,14 @@ const Requests = () => {
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
 					<RequestsForm />
 				</Tab>
-			{showModal && 
-
-				<ConfirmModal onClose={toggleModal} message="¿Desea eliminar esta solicitud?">
-					Solicitud Eliminar
-				</ConfirmModal>
-			}
+				{showModal && (
+					<ConfirmModal
+						onClose={toggleModal}
+						message="¿Desea eliminar esta solicitud?"
+					>
+						Solicitud Eliminar
+					</ConfirmModal>
+				)}
 			</Tabs>
 		</>
 	);
