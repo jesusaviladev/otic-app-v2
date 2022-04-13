@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { getRequests } from '../services/requests.services.js';
+import { getRequests, deleteRequest } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
 import useModal from '../hooks/useModal.js';
 import DataTable from 'react-data-table-component';
@@ -34,6 +34,15 @@ const Requests = () => {
 			});
 	}, []);
 
+	//FIX
+
+	const handleClick = useCallback(async () => {
+		
+		const response = await deleteRequest(token, activeItem)
+		console.log(response)
+
+	})
+
 	const columns = [
 		{
 			name: 'ID',
@@ -60,7 +69,7 @@ const Requests = () => {
 		{
 			name: 'Usuario',
 			sortable: true,
-			selector: (row) => row.user.username,
+			selector: (row) => row.user?.username,
 		},
 		{
 			name: 'Editar',
@@ -74,7 +83,7 @@ const Requests = () => {
 		{
 			name: 'Eliminar',
 			button: true,
-			cell: () => (
+			cell: (row) => (
 				<button onClick={toggleModal}>
 					<FaTrash className="w-5 h-5 text-red-600" />
 				</button>
@@ -124,6 +133,7 @@ const Requests = () => {
 				{showModal && (
 					<ConfirmModal
 						onClose={toggleModal}
+						onClick={handleClick}
 						message="¿Desea eliminar esta solicitud?"
 					>
 						Solicitud Eliminar

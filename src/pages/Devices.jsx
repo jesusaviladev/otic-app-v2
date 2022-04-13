@@ -37,10 +37,16 @@ const Devices = () => {
 		{
 			name: 'Tipo',
 			selector: (row) => row.type,
+			style: {
+				textTransform: 'capitalize',
+			},
 		},
 		{
 			name: 'Nombre',
 			selector: (row) => row.name,
+			style: {
+				textTransform: 'capitalize',
+			},
 		},
 	];
 

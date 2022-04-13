@@ -42,3 +42,14 @@ export const editRequest = (token, id, data) => {
 		data: data,
 	});
 };
+
+export const deleteRequest = (token, id) => {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/requests/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		}
+	});
+};
+

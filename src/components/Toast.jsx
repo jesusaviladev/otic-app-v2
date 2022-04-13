@@ -2,16 +2,19 @@ import { useEffect } from 'react';
 
 const Toast = ({ type, message, onClick }) => {
 	useEffect(() => {
-		setTimeout(() => {
+		const disappear = setTimeout(() => {
 			onClick();
 		}, 5000);
+
+		return clearInterval(disappear)
+		
 	}, []);
 
 	if (type === 'danger')
 		return (
 			<div
 				id="toast-danger"
-				className="fixed bottom-1 left-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-full lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
+				className="fixed bottom-1 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-11/12 lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
 				role="alert"
 			>
 				<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
@@ -56,7 +59,7 @@ const Toast = ({ type, message, onClick }) => {
 	return (
 		<div
 			id="toast-success"
-			className="fixed bottom-1 left-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-full lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
+			className="fixed bottom-1 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-11/12 lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
 			role="alert"
 		>
 			<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">

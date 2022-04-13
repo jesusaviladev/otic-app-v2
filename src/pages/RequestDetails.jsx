@@ -41,7 +41,10 @@ const RequestDetails = () => {
 	useEffect(() => {
 		Promise.all([getRequestById(token, id), getUsers(token)])
 			.then((res) => {
-				reset(res[0].data.request);
+				reset({
+					user_id: res[0].data.request.user_id || '',
+					description: res[0].data.request.description
+				});
 
 				const users = res[1].data.users
 					.filter((user) => user.role_id !== 1)
@@ -60,7 +63,7 @@ const RequestDetails = () => {
 	const onSubmit = (values) => {
 		const data = {
 			description: values.description,
-			user_id: values.user_id,
+			user_id: values.user_id || null,
 		};
 
 		editRequest(token, id, data)
@@ -72,12 +75,24 @@ const RequestDetails = () => {
 				console.log(err);
 
 				if (err.response) {
-					const { error } = err.response.data;
+					const { error, errors } = err.response.data;
 
-					setError('user_id', {
-						type: 'server',
-						message: error,
-					});
+					if(error){
+						setError('user_id', {
+							type: 'server',
+							message: error,
+						});
+					}
+
+					if(errors){
+						errors.forEach((error) => {
+							setError(error.param, {
+								type: 'server',
+								message: error.msg,
+							});
+						});
+					}
+
 				} else {
 					setFormError({
 						message: 'Parece que algo va mal, por favor intente más tarde.',
@@ -108,7 +123,8 @@ const RequestDetails = () => {
 							{...field}
 							className="outline-none uppercase cursor-pointer border-2 text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 disabled:grayscale"
 							disabled={disabled}
-						>
+						>	
+							<option value=''>Sin usuario</option>
 							{users.map((user, index) => (
 								<option className="capitalize" key={index} value={user.value}>
 									{user.key}
@@ -132,6 +148,7 @@ const RequestDetails = () => {
 					register={register}
 					errors={errors}
 					disabled={disabled}
+					isRequired={true}
 				/>
 
 				<div className="flex justify-between items-center my-4">

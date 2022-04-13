@@ -40,7 +40,7 @@ const Reports = () => {
 		},
 		{
 			name: 'Usuario asignado',
-			selector: (row) => row.user_id,
+			selector: (row) => row.user.username,
 		},
 	];
 
