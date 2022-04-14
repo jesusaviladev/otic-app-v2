@@ -1,9 +1,20 @@
-const Toast = ({ type, message }) => {
+import { useEffect } from 'react';
+
+const Toast = ({ type, message, onClick }) => {
+	useEffect(() => {
+		const disappear = setTimeout(() => {
+			onClick();
+		}, 5000);
+
+		return clearInterval(disappear)
+		
+	}, []);
+
 	if (type === 'danger')
 		return (
 			<div
 				id="toast-danger"
-				className="absolute top-0 left-0 flex items-center w-full mx-auto p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-slate-900 z-50"
+				className="fixed bottom-1 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-11/12 lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
 				role="alert"
 			>
 				<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
@@ -22,6 +33,7 @@ const Toast = ({ type, message }) => {
 				</div>
 				<div className="ml-3 text-sm font-normal">{message}</div>
 				<button
+					onClick={onClick}
 					type="button"
 					className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
 					data-dismiss-target="#toast-danger"
@@ -47,7 +59,7 @@ const Toast = ({ type, message }) => {
 	return (
 		<div
 			id="toast-success"
-			className="absolute left-0 flex items-center w-full p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-slate-900"
+			className="fixed bottom-1 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:bottom-auto lg:left-auto lg:absolute lg:top-16 lg:right-4 flex items-center w-11/12 lg:max-w-md p-4 mb-4 rounded-lg shadow text-gray-400 bg-neutral-900 z-40"
 			role="alert"
 		>
 			<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -66,6 +78,7 @@ const Toast = ({ type, message }) => {
 			</div>
 			<div className="ml-3 text-sm font-normal">{message}</div>
 			<button
+				onClick={onClick}
 				type="button"
 				className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
 				data-dismiss-target="#toast-success"

@@ -6,6 +6,7 @@ const TextAreaInput = ({
 	errors,
 	placeholder,
 	isRequired,
+	disabled = false,
 }) => {
 	return (
 		// Text area
@@ -19,13 +20,14 @@ const TextAreaInput = ({
 			<textarea
 				placeholder={placeholder}
 				id={fieldName}
-				className="outline-none block p-2.5 w-full h-28 text-md rounded-lg border-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+				className="outline-none block p-2.5 w-full h-28 text-md rounded-lg border-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 disabled:grayscale"
 				{...register(fieldName, {
 					required: {
 						value: isRequired,
 						message: 'Este campo es requerido',
 					},
 				})}
+				disabled={disabled}
 			/>
 			<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{helper}</p>
 			<p className="my-2 text-red-500 text-sm">

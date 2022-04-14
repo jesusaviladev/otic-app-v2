@@ -34,7 +34,7 @@ const Dashboard = () => {
 						setShow={() => setShowMenu(!showMenu)}
 						items={config}
 					/>
-					<div className="flex-grow text-gray-100 p-4">
+					<div className="lg:w-2/4 grow text-gray-100 p-4">
 						<Outlet />
 					</div>
 				</div>

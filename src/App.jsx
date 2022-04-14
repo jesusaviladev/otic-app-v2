@@ -13,6 +13,7 @@ import Devices from './pages/Devices.jsx';
 import Users from './pages/Users.jsx';
 import UserRequests from './pages/UserRequests.jsx';
 import UserReports from './pages/UserReports.jsx';
+import RequestDetails from './pages/RequestDetails.jsx';
 
 function App() {
 	return (
@@ -37,6 +38,10 @@ function App() {
 							<Route path="/admin" element={<Dashboard />}>
 								<Route path="/admin/" element={<Home />} />
 								<Route path="/admin/solicitudes" element={<Requests />} />
+								<Route
+									path="/admin/solicitudes/:id"
+									element={<RequestDetails />}
+								/>
 								<Route path="/admin/reportes" element={<Reports />} />
 								<Route path="/admin/usuarios" element={<Users />} />
 								<Route path="/admin/equipos" element={<Devices />} />

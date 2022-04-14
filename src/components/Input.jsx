@@ -9,6 +9,7 @@ const Input = ({
 	isRequired,
 	maximLength,
 	minimLength,
+	disabled = false,
 }) => {
 	return (
 		// Input de texto
@@ -38,6 +39,7 @@ const Input = ({
 						message: `El valor no debe ser menor de ${minimLength} caracteres`,
 					},
 				})}
+				disabled={disabled}
 			/>
 			<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{helper}</p>
 			<p className="my-2 text-red-500 text-sm">
