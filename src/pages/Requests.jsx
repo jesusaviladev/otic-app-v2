@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getRequests, deleteRequest } from '../services/requests.services.js';
-import useSession from '../hooks/useSession.js';
 import useModal from '../hooks/useModal.js';
+import useRequests from '../hooks/useRequests.js'
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -11,37 +10,37 @@ import RequestsForm from '../components/RequestsForm.jsx';
 import Tabs from '../components/Tabs.jsx';
 import Tab from '../components/Tab.jsx';
 import ConfirmModal from '../components/ConfirmModal.jsx';
+import Toast from '../components/Toast.jsx';
+import { RequestsContextProvider } from '../context/RequestsContext.jsx';
 
 const Requests = () => {
-	const [requests, setRequests] = useState([]);
-	const [pending, setPending] = useState(true);
+
 	const [selectedTab, setSelectedTab] = useState('Solicitudes');
+
+	const [successDelete, setSuccessDelete] = useState(false)
+
+	const  { requests, pending, handleDeleteRequest } = useRequests()
 
 	const { showModal, toggleModal } = useModal();
 
-	const { user } = useSession();
-	const { token } = JSON.parse(user);
+	const selectedItemRef = useRef(null);
 
-	useEffect(() => {
-		getRequests(token)
-			.then((res) => {
-				setPending(false);
-				setRequests(res.data.requests);
-			})
-			.catch((error) => {
-				setPending(false);
-				console.log(error);
-			});
-	}, []);
+	const handleDelete = (id) => {
+		selectedItemRef.current = id;
+		toggleModal();
+	};
 
-	//FIX
-
-	const handleClick = useCallback(async () => {
-		
-		const response = await deleteRequest(token, activeItem)
-		console.log(response)
-
-	})
+	const confirmModalAction = (id) => {
+		handleDeleteRequest(id)
+		.then(() => {
+			toggleModal();
+			setSuccessDelete(true)
+		})
+		.catch((err) => {
+			toggleModal();
+			console.log(err)
+		})
+	}
 
 	const columns = [
 		{
@@ -84,7 +83,7 @@ const Requests = () => {
 			name: 'Eliminar',
 			button: true,
 			cell: (row) => (
-				<button onClick={toggleModal}>
+				<button data-id={row.id} onClick={() => handleDelete(row.id)}>
 					<FaTrash className="w-5 h-5 text-red-600" />
 				</button>
 			),
@@ -130,16 +129,20 @@ const Requests = () => {
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
 					<RequestsForm />
 				</Tab>
-				{showModal && (
-					<ConfirmModal
-						onClose={toggleModal}
-						onClick={handleClick}
-						message="¿Desea eliminar esta solicitud?"
-					>
-						Solicitud Eliminar
-					</ConfirmModal>
-				)}
 			</Tabs>
+			{showModal && (
+				<ConfirmModal
+					onClose={toggleModal}
+					onConfirm={() => confirmModalAction(selectedItemRef.current)}
+					message="¿Desea eliminar esta solicitud?"
+				/>
+			)}
+			{successDelete && (
+				<Toast
+					message="Eliminado correctamente"
+					onClick={() => setSuccessDelete(false)}
+				/>
+			)}
 		</>
 	);
 };

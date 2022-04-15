@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 
-const Toast = ({ type, message, onClick }) => {
+const Toast = ({ type, message, onClick, delay = 5000 }) => {
+
 	useEffect(() => {
 		const disappear = setTimeout(() => {
 			onClick();
-		}, 5000);
+		}, delay);
 
-		return clearInterval(disappear)
+		return () => {
+			clearInterval(disappear)
+		}
 		
 	}, []);
 

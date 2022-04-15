@@ -8,6 +8,7 @@ import { getUsers } from '../services/users.services.js';
 import { getDeviceBySerial } from '../services/devices.services.js';
 import { createRequest } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
+import useRequests from '../hooks/useRequests.js';
 import Toast from '../components/Toast.jsx';
 import debounce from 'just-debounce-it';
 
@@ -16,6 +17,8 @@ const RequestsForm = () => {
 	const { user } = useSession();
 
 	const { token, role } = JSON.parse(user);
+
+	const { handleAddRequest } = useRequests()
 
 	const [users, setUsers] = useState([]);
 
