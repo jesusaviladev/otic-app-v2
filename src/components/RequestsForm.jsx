@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../components/Input.jsx';
 import TextAreaInput from '../components/TextAreaInput.jsx';
@@ -6,27 +6,58 @@ import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
 import { getUsers } from '../services/users.services.js';
 import { getDeviceBySerial } from '../services/devices.services.js';
-import { createRequest } from '../services/requests.services.js';
 import useSession from '../hooks/useSession.js';
-import useRequests from '../hooks/useRequests.js';
 import Toast from '../components/Toast.jsx';
 import debounce from 'just-debounce-it';
 
 // REVISAR
-const RequestsForm = () => {
+const RequestsForm = ({ handleAddRequest }) => {
 	const { user } = useSession();
 
 	const { token, role } = JSON.parse(user);
 
-	const { handleAddRequest } = useRequests()
-
 	const [users, setUsers] = useState([]);
 
-	const [deviceExists, setDeviceExists] = useState(true);
+	// reducer para practicar :)
 
-	const [formError, setFormError] = useState(false);
+	const initialState = {
+		deviceExists: true,
+		formError: false,
+		formSuccess: false
+	}
 
-	const [formSuccess, setFormSuccess] = useState(false);
+	const ACTIONS = {
+		DEVICE_EXISTS: 'device_exists',
+		FORM_ERROR: 'form_error',
+		FORM_SUCCESS: 'form_success'
+	}
+
+	const reducer = (state, action) => {
+
+		switch(action.type){
+			case ACTIONS.DEVICE_EXISTS: 
+			return {
+				...state,
+				deviceExists: action.payload
+			}
+
+			case ACTIONS.FORM_ERROR:
+			return {
+				...state,
+				formError: action.payload
+			}
+			case ACTIONS.FORM_SUCCCESS:
+			return {
+				...state,
+				formSuccess: action.payload
+			}
+
+			default: 
+			return state
+		}
+	}
+
+	const [ state, dispatch ] = useReducer(reducer, initialState)
 
 	const {
 		register,
@@ -71,16 +102,14 @@ const RequestsForm = () => {
 	useEffect(() => {
 		// FIX: Debounce
 		// recuperamos equipo segun el serial suscribiendose al input
-		console.log(watchSerial);
+
 		getDeviceBySerial(token, watchSerial)
 			.then((res) => {
-				console.log(res);
-				setDeviceExists(true);
+				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true})
 			})
 			.catch((err) => {
-				console.log(err);
 				if (err.response) {
-					setDeviceExists(false);
+				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: false})
 				}
 			});
 	}, [watchSerial]);
@@ -92,22 +121,21 @@ const RequestsForm = () => {
 			description,
 			user_id: user_id || null,
 			device: {
-				exists: deviceExists,
+				exists: state.deviceExists,
 				serial,
 				type,
 				name,
 			},
 		};
 
-		createRequest(token, data)
-			.then((res) => {
-				console.log(res);
-				setDeviceExists(true);
+		handleAddRequest(data)
+			.then(() => {
 				reset({
 					description: '',
 					serial: '',
 				});
-				setFormSuccess(true);
+				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true})
+				dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: true})
 			})
 			.catch((err) => {
 				if (err.response) {
@@ -120,26 +148,28 @@ const RequestsForm = () => {
 						});
 					});
 				} else {
-					setFormError({
+
+				dispatch({ type: ACTIONS.FORM_ERROR, payload: {
 						message: 'Parece que algo va mal, por favor intente más tarde.',
-					});
+					}})
+
 				}
 			});
 	};
 
 	return (
 		<>
-			{formSuccess && (
+			{state.formSuccess && (
 				<Toast
 					message="Registrado correctamente"
-					onClick={() => setFormSuccess(false)}
+					onClick={() => dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: false})}
 				/>
 			)}
-			{formError && (
+			{state.formError && (
 				<Toast
 					type="danger"
-					message={formError.message}
-					onClick={() => setFormError(false)}
+					message={state.formError.message}
+					onClick={() => dispatch({ type: ACTIONS.FORM_ERROR, payload: false })}
 				/>
 			)}
 
@@ -183,7 +213,7 @@ const RequestsForm = () => {
 						placeholder="Ingresa el serial del equipo"
 						isRequired={true}
 					/>
-					{deviceExists ? null : (
+					{state.deviceExists ? null : (
 						<div>
 							<p className="my-4">
 								Este equipo no ha sido registrado, por favor indique los

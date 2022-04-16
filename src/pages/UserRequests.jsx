@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserRequests } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
+import useRequests from '../hooks/useRequests.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -13,6 +14,8 @@ const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Mis solicitudes');
+
+	const { handleAddRequest } = useRequests()
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
@@ -86,7 +89,7 @@ const UserRequest = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
-					<RequestsForm />
+					<RequestsForm handleAddRequest={handleAddRequest}/>
 				</Tab>
 			</Tabs>
 		</>

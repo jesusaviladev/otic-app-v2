@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import useModal from '../hooks/useModal.js';
 import useRequests from '../hooks/useRequests.js'
@@ -11,7 +11,6 @@ import Tabs from '../components/Tabs.jsx';
 import Tab from '../components/Tab.jsx';
 import ConfirmModal from '../components/ConfirmModal.jsx';
 import Toast from '../components/Toast.jsx';
-import { RequestsContextProvider } from '../context/RequestsContext.jsx';
 
 const Requests = () => {
 
@@ -19,7 +18,7 @@ const Requests = () => {
 
 	const [successDelete, setSuccessDelete] = useState(false)
 
-	const  { requests, pending, handleDeleteRequest } = useRequests()
+	const  { requests, pending, handleNextPage, handleDeleteRequest, handleAddRequest } = useRequests()
 
 	const { showModal, toggleModal } = useModal();
 
@@ -42,7 +41,7 @@ const Requests = () => {
 		})
 	}
 
-	const columns = [
+	const columns = useMemo(() => [
 		{
 			name: 'ID',
 			sortable: true,
@@ -60,7 +59,7 @@ const Requests = () => {
 		},
 		{
 			name: 'Estado',
-			selector: (row) => row.status.description,
+			selector: (row) => row.status?.description,
 			style: {
 				textTransform: 'capitalize',
 			},
@@ -88,9 +87,10 @@ const Requests = () => {
 				</button>
 			),
 		},
-	];
+	])
 
 	const paginationComponentOptions = {
+		noRowsPerPage: true,
 		rowsPerPageText: 'Filas por página',
 	};
 
@@ -116,7 +116,10 @@ const Requests = () => {
 						columns={columns}
 						data={requests}
 						pagination
+						paginationServer
 						paginationComponentOptions={paginationComponentOptions}
+						paginationPerPage={9}
+						onChangePage={(page, limit) => handleNextPage(page, limit)}
 						highlightOnHover
 						pointerOnHover
 						progressPending={pending}
@@ -127,7 +130,7 @@ const Requests = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
-					<RequestsForm />
+					<RequestsForm handleAddRequest={handleAddRequest}/>
 				</Tab>
 			</Tabs>
 			{showModal && (
