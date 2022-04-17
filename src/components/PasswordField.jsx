@@ -5,7 +5,7 @@ const PasswordField = ({ onChange, value }) => {
 	// input de contraseña con estado visible/invisible
 	const [visible, setVisible] = useState(false);
 
-	const toggleVisibility = () => setVisible(!visible)
+	const toggleVisibility = () => setVisible(!visible);
 
 	return (
 		<div className="relative">

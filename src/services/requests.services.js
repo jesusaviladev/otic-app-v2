@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { API_URL } from './config.js';
 
-export const getRequests = (token, limit = 11) => {
+export const getRequests = (token, page = 1, limit = 10) => {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/requests?limit=${limit}`,
+		url: `${API_URL}/requests?page=${page}&limit=${limit}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
@@ -49,7 +49,6 @@ export const deleteRequest = (token, id) => {
 		url: `${API_URL}/requests/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
+		},
 	});
 };
-

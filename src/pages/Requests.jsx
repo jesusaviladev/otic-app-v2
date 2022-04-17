@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import useModal from '../hooks/useModal.js';
-import useRequests from '../hooks/useRequests.js'
+import useRequests from '../hooks/useRequests.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -13,12 +13,18 @@ import ConfirmModal from '../components/ConfirmModal.jsx';
 import Toast from '../components/Toast.jsx';
 
 const Requests = () => {
-
 	const [selectedTab, setSelectedTab] = useState('Solicitudes');
 
-	const [successDelete, setSuccessDelete] = useState(false)
+	const [successDelete, setSuccessDelete] = useState(false);
 
-	const  { requests, pending, handleNextPage, handleDeleteRequest, handleAddRequest } = useRequests()
+	const {
+		requests,
+		totalRequests,
+		pending,
+		handleNextPage,
+		handleDeleteRequest,
+		handleAddRequest,
+	} = useRequests();
 
 	const { showModal, toggleModal } = useModal();
 
@@ -31,15 +37,15 @@ const Requests = () => {
 
 	const confirmModalAction = (id) => {
 		handleDeleteRequest(id)
-		.then(() => {
-			toggleModal();
-			setSuccessDelete(true)
-		})
-		.catch((err) => {
-			toggleModal();
-			console.log(err)
-		})
-	}
+			.then(() => {
+				toggleModal();
+				setSuccessDelete(true);
+			})
+			.catch((err) => {
+				toggleModal();
+				console.log(err);
+			});
+	};
 
 	const columns = useMemo(() => [
 		{
@@ -87,11 +93,11 @@ const Requests = () => {
 				</button>
 			),
 		},
-	])
+	]);
 
 	const paginationComponentOptions = {
 		noRowsPerPage: true,
-		rowsPerPageText: 'Filas por página',
+		rowsPerPageText: 'Resultados por página',
 	};
 
 	return (
@@ -118,8 +124,8 @@ const Requests = () => {
 						pagination
 						paginationServer
 						paginationComponentOptions={paginationComponentOptions}
-						paginationPerPage={9}
-						onChangePage={(page, limit) => handleNextPage(page, limit)}
+						paginationTotalRows={totalRequests}
+						onChangePage={(page) => handleNextPage(page)}
 						highlightOnHover
 						pointerOnHover
 						progressPending={pending}
@@ -130,7 +136,7 @@ const Requests = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
-					<RequestsForm handleAddRequest={handleAddRequest}/>
+					<RequestsForm handleAddRequest={handleAddRequest} />
 				</Tab>
 			</Tabs>
 			{showModal && (

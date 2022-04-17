@@ -35,13 +35,13 @@ const useSession = () => {
 					setError({ message: 'Parece que algo va mal, intentalo más tarde' });
 				}
 			});
-	});
+	}, []);
 
 	const handleLogout = useCallback(() => {
 		setUser(null);
 		window.sessionStorage.removeItem('user');
 		navigate('/', { replace: true });
-	});
+	}, []);
 
 	return {
 		user,

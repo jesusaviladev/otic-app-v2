@@ -5,7 +5,6 @@ import {
 	createRequest,
 	deleteRequest,
 } from '../services/requests.services.js';
-import axios from 'axios';
 
 const useRequests = () => {
 	const { user } = useSession();
@@ -13,7 +12,7 @@ const useRequests = () => {
 
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
-	const [nextPage, setNextPage] = useState(null);
+	const [totalRequests, setTotalRequests] = useState(0);
 
 	useEffect(() => {
 		if (role === 'admin') {
@@ -21,7 +20,7 @@ const useRequests = () => {
 				.then((res) => {
 					setPending(false);
 					setRequests(res.data.requests);
-					setNextPage(res.data.page.next);
+					setTotalRequests(res.data.page.total);
 				})
 				.catch((error) => {
 					setPending(false);
@@ -35,35 +34,29 @@ const useRequests = () => {
 			setRequests((prevState) =>
 				prevState.filter((request) => request.id !== id)
 			);
+			setTotalRequests((prevState) => prevState - 1);
 		});
-	});
+	}, []);
 
 	const handleAddRequest = useCallback((data) => {
-		return createRequest(token, data).then((res) => {
-			const { request } = res.data;
-
-			setRequests((prevState) => prevState.concat(request));
+		return createRequest(token, data).then(() => {
+			setTotalRequests((prevState) => prevState + 1);
 		});
-	});
+	}, []);
 
-	const handleNextPage = (page, limit) => {
-		console.log(page, limit)
-		return axios({
-			method: 'get',
-			url: nextPage,
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}).then((res) => {
-			console.log(res);
+	const handleNextPage = useCallback((page) => {
+		setPending(true);
+		return getRequests(token, page).then((res) => {
+			setPending(false);
 			setRequests(res.data.requests);
-			setNextPage(res.data.page.next);
+			setTotalRequests(res.data.page.total);
 		});
-	};
+	}, []);
 
 	return {
 		requests,
 		pending,
+		totalRequests,
 		handleNextPage,
 		handleDeleteRequest,
 		handleAddRequest,

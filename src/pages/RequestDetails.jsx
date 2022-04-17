@@ -43,7 +43,7 @@ const RequestDetails = () => {
 			.then((res) => {
 				reset({
 					user_id: res[0].data.request.user_id || '',
-					description: res[0].data.request.description
+					description: res[0].data.request.description,
 				});
 
 				const users = res[1].data.users
@@ -77,14 +77,14 @@ const RequestDetails = () => {
 				if (err.response) {
 					const { error, errors } = err.response.data;
 
-					if(error){
+					if (error) {
 						setError('user_id', {
 							type: 'server',
 							message: error,
 						});
 					}
 
-					if(errors){
+					if (errors) {
 						errors.forEach((error) => {
 							setError(error.param, {
 								type: 'server',
@@ -92,7 +92,6 @@ const RequestDetails = () => {
 							});
 						});
 					}
-
 				} else {
 					setFormError({
 						message: 'Parece que algo va mal, por favor intente más tarde.',
@@ -123,8 +122,8 @@ const RequestDetails = () => {
 							{...field}
 							className="outline-none uppercase cursor-pointer border-2 text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 disabled:grayscale"
 							disabled={disabled}
-						>	
-							<option value=''>Sin usuario</option>
+						>
+							<option value="">Sin usuario</option>
 							{users.map((user, index) => (
 								<option className="capitalize" key={index} value={user.value}>
 									{user.key}

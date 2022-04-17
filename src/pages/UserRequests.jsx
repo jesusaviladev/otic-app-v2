@@ -15,7 +15,7 @@ const UserRequest = () => {
 	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Mis solicitudes');
 
-	const { handleAddRequest } = useRequests()
+	const { handleAddRequest } = useRequests();
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
@@ -89,7 +89,7 @@ const UserRequest = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
-					<RequestsForm handleAddRequest={handleAddRequest}/>
+					<RequestsForm handleAddRequest={handleAddRequest} />
 				</Tab>
 			</Tabs>
 		</>

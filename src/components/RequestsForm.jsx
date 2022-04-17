@@ -23,41 +23,40 @@ const RequestsForm = ({ handleAddRequest }) => {
 	const initialState = {
 		deviceExists: true,
 		formError: false,
-		formSuccess: false
-	}
+		formSuccess: false,
+	};
 
 	const ACTIONS = {
 		DEVICE_EXISTS: 'device_exists',
 		FORM_ERROR: 'form_error',
-		FORM_SUCCESS: 'form_success'
-	}
+		FORM_SUCCESS: 'form_success',
+	};
 
 	const reducer = (state, action) => {
-
-		switch(action.type){
-			case ACTIONS.DEVICE_EXISTS: 
-			return {
-				...state,
-				deviceExists: action.payload
-			}
+		switch (action.type) {
+			case ACTIONS.DEVICE_EXISTS:
+				return {
+					...state,
+					deviceExists: action.payload,
+				};
 
 			case ACTIONS.FORM_ERROR:
-			return {
-				...state,
-				formError: action.payload
-			}
+				return {
+					...state,
+					formError: action.payload,
+				};
 			case ACTIONS.FORM_SUCCCESS:
-			return {
-				...state,
-				formSuccess: action.payload
-			}
+				return {
+					...state,
+					formSuccess: action.payload,
+				};
 
-			default: 
-			return state
+			default:
+				return state;
 		}
-	}
+	};
 
-	const [ state, dispatch ] = useReducer(reducer, initialState)
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const {
 		register,
@@ -105,11 +104,11 @@ const RequestsForm = ({ handleAddRequest }) => {
 
 		getDeviceBySerial(token, watchSerial)
 			.then((res) => {
-				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true})
+				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true });
 			})
 			.catch((err) => {
 				if (err.response) {
-				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: false})
+					dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: false });
 				}
 			});
 	}, [watchSerial]);
@@ -134,8 +133,8 @@ const RequestsForm = ({ handleAddRequest }) => {
 					description: '',
 					serial: '',
 				});
-				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true})
-				dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: true})
+				dispatch({ type: ACTIONS.DEVICE_EXISTS, payload: true });
+				dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: true });
 			})
 			.catch((err) => {
 				if (err.response) {
@@ -148,11 +147,12 @@ const RequestsForm = ({ handleAddRequest }) => {
 						});
 					});
 				} else {
-
-				dispatch({ type: ACTIONS.FORM_ERROR, payload: {
-						message: 'Parece que algo va mal, por favor intente más tarde.',
-					}})
-
+					dispatch({
+						type: ACTIONS.FORM_ERROR,
+						payload: {
+							message: 'Parece que algo va mal, por favor intente más tarde.',
+						},
+					});
 				}
 			});
 	};
@@ -162,7 +162,9 @@ const RequestsForm = ({ handleAddRequest }) => {
 			{state.formSuccess && (
 				<Toast
 					message="Registrado correctamente"
-					onClick={() => dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: false})}
+					onClick={() =>
+						dispatch({ type: ACTIONS.FORM_SUCCCESS, payload: false })
+					}
 				/>
 			)}
 			{state.formError && (

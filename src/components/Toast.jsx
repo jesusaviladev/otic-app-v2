@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
 
 const Toast = ({ type, message, onClick, delay = 5000 }) => {
-
 	useEffect(() => {
 		const disappear = setTimeout(() => {
 			onClick();
 		}, delay);
 
 		return () => {
-			clearInterval(disappear)
-		}
-		
+			clearInterval(disappear);
+		};
 	}, []);
 
 	if (type === 'danger')
