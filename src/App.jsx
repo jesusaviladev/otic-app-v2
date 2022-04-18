@@ -14,6 +14,8 @@ import Users from './pages/Users.jsx';
 import UserRequests from './pages/UserRequests.jsx';
 import UserReports from './pages/UserReports.jsx';
 import RequestDetails from './pages/RequestDetails.jsx';
+import UserDetails from './pages/UserDetails.jsx';
+
 
 function App() {
 	return (
@@ -44,6 +46,7 @@ function App() {
 								/>
 								<Route path="/admin/reportes" element={<Reports />} />
 								<Route path="/admin/usuarios" element={<Users />} />
+								<Route path="/admin/usuarios/:id" element={ <UserDetails/> }/>
 								<Route path="/admin/equipos" element={<Devices />} />
 							</Route>
 						</Route>

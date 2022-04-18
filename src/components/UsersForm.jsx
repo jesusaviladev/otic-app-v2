@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createUser } from '../services/users.services.js';
-import useSession from '../hooks/useSession.js';
 import Input from '../components/Input.jsx';
 import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
 import Toast from '../components/Toast.jsx';
 
-const UsersForm = () => {
-	const { user } = useSession();
-
-	const { token } = JSON.parse(user);
+const UsersForm = ({ handleAddUser }) => {
 
 	const [formError, setFormError] = useState(false);
 	const [formSuccess, setFormSuccess] = useState(false);
@@ -24,7 +19,8 @@ const UsersForm = () => {
 	} = useForm();
 
 	const onSubmit = (values) => {
-		createUser(token, values)
+
+		handleAddUser(values)
 			.then((res) => {
 				reset();
 				setFormSuccess(true);

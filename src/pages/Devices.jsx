@@ -4,13 +4,15 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
+import { Link } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Devices = () => {
 	const [devices, setDevices] = useState([]);
 	const [pending, setPending] = useState(true);
 
 	const { user } = useSession();
-	const { token } = JSON.parse(user);
+	const { token, role } = JSON.parse(user);
 
 	useEffect(() => {
 		getDevices(token)
@@ -47,6 +49,25 @@ const Devices = () => {
 			style: {
 				textTransform: 'capitalize',
 			},
+		},
+		{
+			name: 'Editar',
+			button: true,
+			cell: (row) => (
+				<Link to={`/admin/devices/${row.id}`}>
+					<FaEdit className="w-5 h-5 text-green-500" />
+				</Link>
+			),
+		},
+		{
+			name: 'Eliminar',
+			button: true,
+			cell: (row) => (
+				<button onClick={() => {}}>
+					<FaTrash className="w-5 h-5 text-red-600" />
+				</button>
+			),
+			omit: role !== 'admin'
 		},
 	];
 

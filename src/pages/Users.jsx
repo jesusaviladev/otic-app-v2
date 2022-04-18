@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState, useRef, useMemo } from 'react';
+import useUsers from '../hooks/useUsers.js';
 import { Link } from 'react-router-dom';
-import { getUsers } from '../services/users.services.js';
-import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -11,34 +10,41 @@ import Tab from '../components/Tab.jsx';
 import { FaUser, FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import useModal from '../hooks/useModal.js';
 import ConfirmModal from '../components/ConfirmModal.jsx';
+import Toast from '../components/Toast.jsx';
 
 const Users = () => {
-	const [users, setUsers] = useState([]);
-	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Usuarios');
+	const [successDelete, setSuccessDelete] = useState(false);
 
 	const { showModal, toggleModal } = useModal();
 
-	const { user } = useSession();
-	const { token } = JSON.parse(user);
+	const { users, pending, totalUsers, handleAddUser, handleDeleteUser, handleNextPage } = useUsers();
 
-	useEffect(() => {
-		getUsers(token)
-			.then((res) => {
-				setPending(false);
-				setUsers(res.data.users);
+	const selectedItemRef = useRef(null);
+
+	const handleDelete = (id) => {
+		selectedItemRef.current = id;
+		toggleModal();
+	};
+
+	const confirmModalAction = (id) => {
+		handleDeleteUser(id)
+			.then(() => {
+				toggleModal();
+				setSuccessDelete(true);
 			})
-			.catch((error) => {
-				setPending(false);
-				console.log(error);
+			.catch((err) => {
+				toggleModal();
+				console.log(err);
 			});
-	}, []);
+	}
 
 	const paginationComponentOptions = {
+		noRowsPerPage: true,
 		rowsPerPageText: 'Filas por página',
 	};
 
-	const columns = [
+	const columns = useMemo(() => [
 		{
 			name: 'ID',
 			selector: (row) => row.id,
@@ -85,13 +91,13 @@ const Users = () => {
 		{
 			name: 'Eliminar',
 			button: true,
-			cell: () => (
-				<button onClick={toggleModal}>
+			cell: (row) => (
+				<button onClick={() => handleDelete(row.id)}>
 					<FaTrash className="w-5 h-5 text-red-600" />
 				</button>
 			),
 		},
-	];
+	]);
 
 	return (
 		<>
@@ -115,7 +121,10 @@ const Users = () => {
 						columns={columns}
 						data={users}
 						pagination
+						paginationServer
 						paginationComponentOptions={paginationComponentOptions}
+						paginationTotalRows={totalUsers}
+						onChangePage={(page) => handleNextPage(page)}
 						highlightOnHover
 						pointerOnHover
 						progressPending={pending}
@@ -126,16 +135,21 @@ const Users = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nuevo usuario'}>
-					<UsersForm />
+					<UsersForm handleAddUser={handleAddUser} />
 				</Tab>
 
 				{showModal && (
 					<ConfirmModal
 						onClose={toggleModal}
+						onConfirm={() => confirmModalAction(selectedItemRef.current)}
 						message="¿Desea eliminar este usuario?"
-					>
-						Usuario Eliminar
-					</ConfirmModal>
+					/>
+				)}
+				{successDelete && (
+					<Toast
+						message="Eliminado correctamente"
+						onClick={() => setSuccessDelete(false)}
+					/>
 				)}
 			</Tabs>
 		</>
