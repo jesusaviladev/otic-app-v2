@@ -15,6 +15,7 @@ import UserRequests from './pages/UserRequests.jsx';
 import UserReports from './pages/UserReports.jsx';
 import RequestDetails from './pages/RequestDetails.jsx';
 import UserDetails from './pages/UserDetails.jsx';
+import DeviceDetails from './pages/DeviceDetails.jsx';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 								/>
 								<Route path="/dashboard/reportes" element={<UserReports />} />
 								<Route path="/dashboard/equipos" element={<Devices />} />
+								<Route path="/dashboard/equipos/:serial" element={<DeviceDetails />}/>
 							</Route>
 						</Route>
 						<Route element={<ProtectedRoute redirectPath="/" role="admin" />}>
@@ -48,6 +50,7 @@ function App() {
 								<Route path="/admin/usuarios" element={<Users />} />
 								<Route path="/admin/usuarios/:id" element={ <UserDetails/> }/>
 								<Route path="/admin/equipos" element={<Devices />} />
+								<Route path="/admin/equipos/:serial" element={<DeviceDetails/> }/>
 							</Route>
 						</Route>
 						<Route path="*" element={<NotFound />} />
