@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
 import { getUserRequests } from '../services/users.services.js';
+import { Link } from 'react-router-dom';
 import useSession from '../hooks/useSession.js';
+import useRequests from '../hooks/useRequests.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
 import RequestsForm from '../components/RequestsForm.jsx';
 import Tabs from '../components/Tabs.jsx';
 import Tab from '../components/Tab.jsx';
-import { FaClipboardList, FaPlus } from 'react-icons/fa';
+import { FaClipboardList, FaPlus, FaEdit } from 'react-icons/fa';
 
 const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
 	const [pending, setPending] = useState(true);
 	const [selectedTab, setSelectedTab] = useState('Mis solicitudes');
+
+	const { handleAddRequest } = useRequests();
 
 	const { user } = useSession();
 	const { token, id } = JSON.parse(user);
@@ -45,7 +49,19 @@ const UserRequest = () => {
 		},
 		{
 			name: 'Status',
-			selector: (row) => row.status_id,
+			selector: (row) => row.status.description,
+			style: {
+				textTransform: 'capitalize'
+			}
+		},
+		{
+			name: 'Reporte',
+			button: true,
+			cell: (row) => (
+				row.status_id === 2 ? <Link to={`/dashboard/solicitudes/${row.id}/reporte`}>
+					Nuevo <FaEdit className="w-5 h-5 text-green-500" />
+				</Link> : null
+			)
 		},
 	];
 
@@ -86,7 +102,7 @@ const UserRequest = () => {
 					/>
 				</Tab>
 				<Tab isSelected={selectedTab === 'Nueva solicitud'}>
-					<RequestsForm />
+					<RequestsForm handleAddRequest={handleAddRequest} />
 				</Tab>
 			</Tabs>
 		</>
