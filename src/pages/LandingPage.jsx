@@ -22,13 +22,19 @@ const LandingPage = () => {
 			<Header>
 				<Banner />
 			</Header>
-			<h1 className="text-center font-bold text-3xl md:text-6xl my-10 px-3 sm:mt-20">
-				Sistema de gestión de soporte técnico
-			</h1>
 
-			<div className="flex justify-center itemsc-center p-4">
-				<Button href="/login">Iniciar sesión</Button>
-			</div>
+			<main className="flex flex-col lg:flex-row justify-center items-center p-4 lg:p-10">
+
+				<div className="flex flex-col justify-start items-center lg:items-start mb-10 lg:ml-16">
+					<h1 className="text-center lg:text-left font-bold text-3xl md:text-6xl my-10">
+						Sistema de Gestión de Soporte Técnico
+					</h1>
+					<h2 className="text-lg text-center lg:text-left font-light my-6">Oficina de Tecnología, Información y Comunicación</h2>
+					<Button href="/login">Iniciar sesión</Button>
+				</div>
+
+				<img src="/assets/images/desktop.svg" alt="desktop illustration" className="md:max-w-lg lg:max-w-xl xl:max-w-2xl saturate-200"/>	
+			</main>
 		</>
 	);
 };
