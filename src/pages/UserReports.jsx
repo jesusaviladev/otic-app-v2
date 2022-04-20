@@ -61,7 +61,6 @@ const UserReports = () => {
 				progressComponent={<TableSpinner />}
 				theme="dark"
 			/>
-			<ReportsForm />
 		</>
 	);
 };

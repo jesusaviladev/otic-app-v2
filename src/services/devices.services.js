@@ -30,7 +30,7 @@ export const editDevice = (token, serial, data) => {
 		},
 		data: data,
 	});
-}
+};
 
 export const deleteDevice = (token, serial) => {
 	return axios({
@@ -40,4 +40,4 @@ export const deleteDevice = (token, serial) => {
 			Authorization: `Bearer ${token}`,
 		},
 	});
-}
+};

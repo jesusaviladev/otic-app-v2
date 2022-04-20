@@ -60,8 +60,8 @@ export const editUser = (token, id, data) => {
 			Authorization: `Bearer ${token}`,
 		},
 		data: data,
-	})
-}
+	});
+};
 
 export const deleteUser = (token, id) => {
 	return axios({
@@ -69,6 +69,6 @@ export const deleteUser = (token, id) => {
 		url: `${API_URL}/users/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
-	})	
-} 
+		},
+	});
+};
