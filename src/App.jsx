@@ -33,7 +33,7 @@ function App() {
 									path="/dashboard/solicitudes"
 									element={<UserRequests />}
 								/>
-								<Route path="/dashboard/solicitudes/:id/reporte" element={<ReportsForm />}/>
+								<Route path="/dashboard/solicitudes/:requestId/reporte" element={<ReportsForm />}/>
 								<Route path="/dashboard/reportes" element={<UserReports />} />
 								<Route path="/dashboard/equipos" element={<Devices />} />
 								<Route

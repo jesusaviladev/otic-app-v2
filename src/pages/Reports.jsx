@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { getReports } from '../services/reports.services.js';
 import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Reports = () => {
 	const [reports, setReports] = useState([]);
@@ -42,6 +44,25 @@ const Reports = () => {
 			name: 'Usuario asignado',
 			selector: (row) => row.user.username,
 		},
+		{
+			name: 'Editar',
+			button: true,
+			cell: (row) => (
+				<Link to={`/admin/reportes/${row.id}`}>
+					<FaEdit className="w-5 h-5 text-green-500" />
+				</Link>
+			),
+		},
+		{
+			name: 'Eliminar',
+			button: true,
+			cell: (row) => (
+				<button>
+					<FaTrash className="w-5 h-5 text-red-600" />
+				</button>
+			),
+		},
+
 	];
 
 	const paginationComponentOptions = {
