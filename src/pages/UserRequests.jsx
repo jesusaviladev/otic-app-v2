@@ -59,8 +59,8 @@ const UserRequest = () => {
 			button: true,
 			cell: (row) =>
 				row.status_id === 2 ? (
-					<Link to={`/dashboard/solicitudes/${row.id}/reporte`}>
-						Nuevo <FaEdit className="w-5 h-5 text-green-500" />
+					<Link to={`/dashboard/solicitudes/${row.id}/reporte`} className="flex items-center">
+						<FaEdit className="w-5 h-5 text-green-500 mr-2" /> Crear
 					</Link>
 				) : null,
 		},

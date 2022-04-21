@@ -104,7 +104,7 @@ const Users = () => {
 				</button>
 			),
 		},
-	]);
+	], []);
 
 	return (
 		<>

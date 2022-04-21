@@ -16,6 +16,7 @@ import UserReports from './pages/UserReports.jsx';
 import RequestDetails from './pages/RequestDetails.jsx';
 import UserDetails from './pages/UserDetails.jsx';
 import DeviceDetails from './pages/DeviceDetails.jsx';
+import ReportDetails from './pages/ReportDetails.jsx';
 import ReportsForm from './components/ReportsForm.jsx';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
 									element={<RequestDetails />}
 								/>
 								<Route path="/admin/reportes" element={<Reports />} />
+								<Route path="/admin/reportes/:id" element={<ReportDetails />}/>
 								<Route path="/admin/usuarios" element={<Users />} />
 								<Route path="/admin/usuarios/:id" element={<UserDetails />} />
 								<Route path="/admin/equipos" element={<Devices />} />

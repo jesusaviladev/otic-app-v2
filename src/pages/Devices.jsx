@@ -69,7 +69,7 @@ const Devices = () => {
 			},
 		},
 		{
-			name: 'Editar',
+			name: 'Detalles',
 			button: true,
 			cell: (row) => (
 				<Link
@@ -93,7 +93,7 @@ const Devices = () => {
 			),
 			omit: role !== 'admin',
 		},
-	]);
+	], []);
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',

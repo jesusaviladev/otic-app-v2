@@ -13,7 +13,7 @@ const DeviceDetails = () => {
 
 	const { user } = useSession();
 
-	const { token } = JSON.parse(user);
+	const { token, role } = JSON.parse(user);
 
 	const {
 		register,
@@ -89,6 +89,12 @@ const DeviceDetails = () => {
 
 			<button
 				onClick={() => {
+					if(role !== 'admin'){
+						return setFormError({
+							message: 'No tienes permiso para realizar esta acción'
+						})
+					}
+
 					setDisabled(!disabled);
 				}}
 				className="cursor-pointer flex items-center my-4"
@@ -145,7 +151,7 @@ const DeviceDetails = () => {
 				/>
 
 				<div className="flex justify-between items-center my-4">
-					<Link to="/admin/equipos" className="mr-2">
+					<Link to={role === 'admin' ? "/admin/equipos" : "/dashboard/equipos"} className="mr-2">
 						Volver
 					</Link>
 
