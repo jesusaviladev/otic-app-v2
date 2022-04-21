@@ -1,5 +1,5 @@
-import { useState, useRef, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import useReports from '../hooks/useReports.js';
 import useModal from '../hooks/useModal.js';
 import DataTable from 'react-data-table-component';
@@ -10,10 +10,10 @@ import ConfirmModal from '../components/ConfirmModal.jsx';
 import Toast from '../components/Toast.jsx';
 
 const Reports = () => {
+	const { reports, totalReports, pending, handleDeleteReport, handleNextPage } =
+		useReports();
 
-	const { reports, totalReports, pending, handleDeleteReport, handleNextPage } = useReports()
-
-	const { showModal, toggleModal } = useModal()
+	const { showModal, toggleModal } = useModal();
 
 	const [successDelete, setSuccessDelete] = useState(false);
 
@@ -26,54 +26,56 @@ const Reports = () => {
 
 	const confirmModalAction = (id) => {
 		handleDeleteReport(id)
-		.then(() => {
-			toggleModal()
-			setSuccessDelete(true)
-		})
-		.catch((err) => {
+			.then(() => {
+				toggleModal();
+				setSuccessDelete(true);
+			})
+			.catch((err) => {
 				toggleModal();
 				console.log(err);
 			});
 	};
 
-	const columns = useMemo(() => [
-		{
-			name: 'ID',
-			selector: (row) => row.id,
-			width: '50px',
-		},
-		{
-			name: 'Comentario',
-			selector: (row) => row.comment,
-		},
-		{
-			name: 'Fecha',
-			selector: (row) => row.date,
-		},
-		{
-			name: 'Usuario asignado',
-			selector: (row) => row.user?.username,
-		},
-		{
-			name: 'Detalles',
-			button: true,
-			cell: (row) => (
-				<Link to={`/admin/reportes/${row.id}`}>
-					<FaEdit className="w-5 h-5 text-green-500" />
-				</Link>
-			),
-		},
-		{
-			name: 'Eliminar',
-			button: true,
-			cell: (row) => (
-				<button onClick={() => handleDelete(row.id)}>
-					<FaTrash className="w-5 h-5 text-red-600" />
-				</button>
-			),
-		},
-
-	], []);
+	const columns = useMemo(
+		() => [
+			{
+				name: 'ID',
+				selector: (row) => row.id,
+				width: '50px',
+			},
+			{
+				name: 'Comentario',
+				selector: (row) => row.comment,
+			},
+			{
+				name: 'Fecha',
+				selector: (row) => row.date,
+			},
+			{
+				name: 'Usuario asignado',
+				selector: (row) => row.user?.username,
+			},
+			{
+				name: 'Detalles',
+				button: true,
+				cell: (row) => (
+					<Link to={`/admin/reportes/${row.id}`}>
+						<FaEdit className="w-5 h-5 text-green-500" />
+					</Link>
+				),
+			},
+			{
+				name: 'Eliminar',
+				button: true,
+				cell: (row) => (
+					<button onClick={() => handleDelete(row.id)}>
+						<FaTrash className="w-5 h-5 text-red-600" />
+					</button>
+				),
+			},
+		],
+		[]
+	);
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',
@@ -102,7 +104,7 @@ const Reports = () => {
 				<ConfirmModal
 					onClose={toggleModal}
 					onConfirm={() => confirmModalAction(selectedItemRef.current)}
-					message="¿Desea eliminar este equipo?"
+					message="¿Desea eliminar este reporte?"
 				/>
 			)}
 			{successDelete && (

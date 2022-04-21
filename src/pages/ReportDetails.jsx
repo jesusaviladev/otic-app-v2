@@ -9,7 +9,6 @@ import Toast from '../components/Toast.jsx';
 import TextAreaInput from '../components/TextAreaInput.jsx';
 
 const ReportDetails = () => {
-
 	const { id } = useParams();
 
 	const { user } = useSession();
@@ -50,7 +49,6 @@ const ReportDetails = () => {
 	}, []);
 
 	const onSubmit = (values) => {
-
 		editReport(token, id, values)
 			.then((res) => {
 				setFormSuccess(true);
@@ -79,8 +77,10 @@ const ReportDetails = () => {
 	};
 
 	return (
-	<>
-		<h1 className="text-2xl font-bold my-4">Detalles del reporte {`#${report.id}`}</h1>
+		<>
+			<h1 className="text-2xl font-bold my-4">
+				Detalles del reporte {`#${report.id}`}
+			</h1>
 			<button
 				onClick={() => setDisabled(!disabled)}
 				className="cursor-pointer flex items-center my-4"
@@ -89,13 +89,19 @@ const ReportDetails = () => {
 			</button>
 
 			<div className="p-6 my-4 rounded-lg border border-gray-200 bg-gray-700 border-gray-700">
+				<h2 className="mb-2 text-xl lg:text-2xl font-bold tracking-tight text-white">
+					Reporte correspondiente a la solicitud {`#${report.request_id}`}
+				</h2>
 
-				<h2 className="mb-2 text-3xl font-bold tracking-tight text-white">Reporte correspondiente a la solicitud {`#${report.request_id}`}</h2>
+				<p className="mb-3 font-bold text-white">
+					Fecha de emisión:{' '}
+					<span className="font-normal text-gray-400">{`${report.date}`}</span>
+				</p>
 
-			    <p className="mb-3 font-bold text-white">Fecha de emisión: <span className="font-normal text-gray-400">{`${report.date}`}</span></p>
-
-			    <p className="mb-3 font-bold text-white">Usuario: <span className="font-normal text-gray-400">{`${report.user?.username}`}</span></p>
-				
+				<p className="mb-3 font-bold text-white">
+					Usuario:{' '}
+					<span className="font-normal text-gray-400">{`${report.user?.username}`}</span>
+				</p>
 			</div>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -109,7 +115,7 @@ const ReportDetails = () => {
 				/>
 
 				<div className="flex justify-between items-center my-4">
-					<Link to={"/admin/reportes"} className="mr-2">
+					<Link to={'/admin/reportes'} className="mr-2">
 						Volver
 					</Link>
 
@@ -129,8 +135,8 @@ const ReportDetails = () => {
 					onClick={() => setFormError(false)}
 				/>
 			)}
-	</>
-		)
-}
+		</>
+	);
+};
 
-export default ReportDetails
+export default ReportDetails;

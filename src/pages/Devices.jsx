@@ -44,56 +44,59 @@ const Devices = () => {
 			});
 	};
 
-	const columns = useMemo(() => [
-		{
-			name: 'ID',
-			selector: (row) => row.id,
-			width: '50px',
-		},
-		{
-			name: 'Serial',
-			selector: (row) => row.serial,
-		},
-		{
-			name: 'Tipo',
-			selector: (row) => row.type,
-			style: {
-				textTransform: 'capitalize',
+	const columns = useMemo(
+		() => [
+			{
+				name: 'ID',
+				selector: (row) => row.id,
+				width: '50px',
 			},
-		},
-		{
-			name: 'Nombre',
-			selector: (row) => row.name,
-			style: {
-				textTransform: 'capitalize',
+			{
+				name: 'Serial',
+				selector: (row) => row.serial,
 			},
-		},
-		{
-			name: 'Detalles',
-			button: true,
-			cell: (row) => (
-				<Link
-					to={
-						role === 'admin'
-							? `/admin/equipos/${row.serial}`
-							: `/dashboard/equipos/${row.serial}`
-					}
-				>
-					<FaEdit className="w-5 h-5 text-green-500" />
-				</Link>
-			),
-		},
-		{
-			name: 'Eliminar',
-			button: true,
-			cell: (row) => (
-				<button onClick={() => handleDelete(row.serial)}>
-					<FaTrash className="w-5 h-5 text-red-600" />
-				</button>
-			),
-			omit: role !== 'admin',
-		},
-	], []);
+			{
+				name: 'Tipo',
+				selector: (row) => row.type,
+				style: {
+					textTransform: 'capitalize',
+				},
+			},
+			{
+				name: 'Nombre',
+				selector: (row) => row.name,
+				style: {
+					textTransform: 'capitalize',
+				},
+			},
+			{
+				name: 'Detalles',
+				button: true,
+				cell: (row) => (
+					<Link
+						to={
+							role === 'admin'
+								? `/admin/equipos/${row.serial}`
+								: `/dashboard/equipos/${row.serial}`
+						}
+					>
+						<FaEdit className="w-5 h-5 text-green-500" />
+					</Link>
+				),
+			},
+			{
+				name: 'Eliminar',
+				button: true,
+				cell: (row) => (
+					<button onClick={() => handleDelete(row.serial)}>
+						<FaTrash className="w-5 h-5 text-red-600" />
+					</button>
+				),
+				omit: role !== 'admin',
+			},
+		],
+		[]
+	);
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',

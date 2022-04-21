@@ -34,7 +34,10 @@ function App() {
 									path="/dashboard/solicitudes"
 									element={<UserRequests />}
 								/>
-								<Route path="/dashboard/solicitudes/:requestId/reporte" element={<ReportsForm />}/>
+								<Route
+									path="/dashboard/solicitudes/:requestId/reporte"
+									element={<ReportsForm />}
+								/>
 								<Route path="/dashboard/reportes" element={<UserReports />} />
 								<Route path="/dashboard/equipos" element={<Devices />} />
 								<Route
@@ -52,7 +55,7 @@ function App() {
 									element={<RequestDetails />}
 								/>
 								<Route path="/admin/reportes" element={<Reports />} />
-								<Route path="/admin/reportes/:id" element={<ReportDetails />}/>
+								<Route path="/admin/reportes/:id" element={<ReportDetails />} />
 								<Route path="/admin/usuarios" element={<Users />} />
 								<Route path="/admin/usuarios/:id" element={<UserDetails />} />
 								<Route path="/admin/equipos" element={<Devices />} />

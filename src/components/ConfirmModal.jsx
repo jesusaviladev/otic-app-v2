@@ -41,6 +41,9 @@ const ConfirmModal = ({ onClose, message, onConfirm }) => {
 					<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
 						{message}
 					</h3>
+					<p className="mb-5 text-sm font-normal">
+						Esta acción no puede ser revertida
+					</p>
 					<button
 						onClick={onConfirm}
 						type="button"

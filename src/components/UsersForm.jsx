@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../components/Input.jsx';
+import OptionsInput from '../components/OptionsInput.jsx';
 import SelectInput from '../components/SelectInput.jsx';
 import Button from '../components/Button.jsx';
 import Toast from '../components/Toast.jsx';
@@ -18,7 +19,14 @@ const UsersForm = ({ handleAddUser }) => {
 	} = useForm();
 
 	const onSubmit = (values) => {
-		handleAddUser(values)
+		const data = {
+			...values,
+			ci: `${values.ciOptions}${values.ci}`,
+		};
+
+		delete data.ciOptions;
+
+		handleAddUser(data)
 			.then((res) => {
 				reset();
 				setFormSuccess(true);
@@ -100,14 +108,24 @@ const UsersForm = ({ handleAddUser }) => {
 						placeholder="Ingresa los apellidos"
 						isRequired={true}
 					/>
-					<Input
+					<OptionsInput
 						type="text"
 						fieldName="ci"
 						label="Cédula de Identidad"
 						register={register}
 						errors={errors}
-						placeholder="Ej: V-26990863"
+						placeholder="Ej: 26990863"
 						isRequired={true}
+						options={[
+							{
+								key: 'V',
+								value: 'V-',
+							},
+							{
+								key: 'E',
+								value: 'E-',
+							},
+						]}
 					/>
 					<Input
 						type="text"

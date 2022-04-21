@@ -51,60 +51,63 @@ const Users = () => {
 		rowsPerPageText: 'Filas por página',
 	};
 
-	const columns = useMemo(() => [
-		{
-			name: 'ID',
-			selector: (row) => row.id,
-			width: '50px',
-		},
-		{
-			name: 'Usuario',
-			selector: (row) => row.username,
-		},
-		{
-			name: 'Nombre',
-			selector: (row) => row.name,
-			style: {
-				textTransform: 'capitalize',
+	const columns = useMemo(
+		() => [
+			{
+				name: 'ID',
+				selector: (row) => row.id,
+				width: '50px',
 			},
-		},
-		{
-			name: 'Apellido',
-			selector: (row) => row.surname,
-			style: {
-				textTransform: 'capitalize',
+			{
+				name: 'Usuario',
+				selector: (row) => row.username,
 			},
-		},
-		{
-			name: 'C.I.',
-			selector: (row) => row.ci,
-		},
-		{
-			name: 'Rol',
-			selector: (row) => row.role.name,
-			style: {
-				textTransform: 'capitalize',
+			{
+				name: 'Nombre',
+				selector: (row) => row.name,
+				style: {
+					textTransform: 'capitalize',
+				},
 			},
-		},
-		{
-			name: 'Editar',
-			button: true,
-			cell: (row) => (
-				<Link to={`/admin/usuarios/${row.id}`}>
-					<FaEdit className="w-5 h-5 text-green-500" />
-				</Link>
-			),
-		},
-		{
-			name: 'Eliminar',
-			button: true,
-			cell: (row) => (
-				<button onClick={() => handleDelete(row.id)}>
-					<FaTrash className="w-5 h-5 text-red-600" />
-				</button>
-			),
-		},
-	], []);
+			{
+				name: 'Apellido',
+				selector: (row) => row.surname,
+				style: {
+					textTransform: 'capitalize',
+				},
+			},
+			{
+				name: 'C.I.',
+				selector: (row) => row.ci,
+			},
+			{
+				name: 'Rol',
+				selector: (row) => row.role.name,
+				style: {
+					textTransform: 'capitalize',
+				},
+			},
+			{
+				name: 'Editar',
+				button: true,
+				cell: (row) => (
+					<Link to={`/admin/usuarios/${row.id}`}>
+						<FaEdit className="w-5 h-5 text-green-500" />
+					</Link>
+				),
+			},
+			{
+				name: 'Eliminar',
+				button: true,
+				cell: (row) => (
+					<button onClick={() => handleDelete(row.id)}>
+						<FaTrash className="w-5 h-5 text-red-600" />
+					</button>
+				),
+			},
+		],
+		[]
+	);
 
 	return (
 		<>

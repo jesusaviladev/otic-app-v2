@@ -17,9 +17,9 @@ export const getReportById = (token, id) => {
 		url: `${API_URL}/reports/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
-	})
-}
+		},
+	});
+};
 
 export const createReport = (token, data) => {
 	return axios({
@@ -49,6 +49,6 @@ export const deleteReport = (token, id) => {
 		url: `${API_URL}/reports/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
+		},
 	});
-}
+};
