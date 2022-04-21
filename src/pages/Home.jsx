@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { getUserById } from '../services/users.services.js';
 import useSession from '../hooks/useSession.js';
 import Spinner from '../components/Spinner.jsx';
+import StatsCard from '../components/StatsCard.jsx';
+import ListItems from '../components/ListItems.jsx';
 
 const Home = () => {
 	const [currentUser, setCurrentUser] = useState([]);
@@ -24,9 +26,36 @@ const Home = () => {
 	if (loading) return <Spinner color="white" />;
 
 	return (
-		<h1 className="font-medium text-2xl md:text-3xl capitalize">
+	<>
+		<h1 className="font-medium text-2xl md:text-3xl capitalize my-5">
 			Bienvenid@ {`${currentUser.name}`}
 		</h1>
+
+		<main>
+
+			<div className="grid grid-cols-2 gap-4 my-5">
+				<StatsCard title="Total de solicitudes" content="50"/>
+				<StatsCard title="Total de reportes" content="30"/>
+			</div>
+			
+			<div className="grid lg:grid-cols-3 gap-4">
+
+				<section className="lg:col-span-2">
+
+					<ListItems title="Ultimas solicitudes"/>
+
+				</section>
+
+				<aside>
+								
+					<ListItems title="Ultimos reportes"/>
+
+				</aside>
+
+			</div>
+
+		</main>
+	</>
 	);
 };
 
