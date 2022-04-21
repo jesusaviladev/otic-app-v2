@@ -18,7 +18,14 @@ const Users = () => {
 
 	const { showModal, toggleModal } = useModal();
 
-	const { users, pending, totalUsers, handleAddUser, handleDeleteUser, handleNextPage } = useUsers();
+	const {
+		users,
+		pending,
+		totalUsers,
+		handleAddUser,
+		handleDeleteUser,
+		handleNextPage,
+	} = useUsers();
 
 	const selectedItemRef = useRef(null);
 
@@ -37,7 +44,7 @@ const Users = () => {
 				toggleModal();
 				console.log(err);
 			});
-	}
+	};
 
 	const paginationComponentOptions = {
 		noRowsPerPage: true,
@@ -97,7 +104,7 @@ const Users = () => {
 				</button>
 			),
 		},
-	]);
+	], []);
 
 	return (
 		<>

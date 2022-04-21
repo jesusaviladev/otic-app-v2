@@ -1,15 +1,25 @@
 import axios from 'axios';
 import { API_URL } from './config.js';
 
-export const getReports = (token) => {
+export const getReports = (token, page = 1, limit = 10) => {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/reports`,
+		url: `${API_URL}/reports?page=${page}&limit=${limit}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
 	});
 };
+
+export const getReportById = (token, id) => {
+	return axios({
+		method: 'get',
+		url: `${API_URL}/reports/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		}
+	})
+}
 
 export const createReport = (token, data) => {
 	return axios({
@@ -21,3 +31,24 @@ export const createReport = (token, data) => {
 		data: data,
 	});
 };
+
+export const editReport = (token, id, data) => {
+	return axios({
+		method: 'patch',
+		url: `${API_URL}/reports/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+		data: data,
+	});
+};
+
+export const deleteReport = (token, id) => {
+	return axios({
+		method: 'delete',
+		url: `${API_URL}/reports/${id}`,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		}
+	});
+}

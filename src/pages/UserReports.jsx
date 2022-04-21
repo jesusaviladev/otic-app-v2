@@ -4,7 +4,6 @@ import useSession from '../hooks/useSession.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
-import ReportsForm from '../components/ReportsForm.jsx';
 
 const UserReports = () => {
 	const [reports, setReports] = useState([]);
@@ -61,7 +60,6 @@ const UserReports = () => {
 				progressComponent={<TableSpinner />}
 				theme="dark"
 			/>
-			<ReportsForm />
 		</>
 	);
 };

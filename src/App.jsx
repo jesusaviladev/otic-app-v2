@@ -16,7 +16,8 @@ import UserReports from './pages/UserReports.jsx';
 import RequestDetails from './pages/RequestDetails.jsx';
 import UserDetails from './pages/UserDetails.jsx';
 import DeviceDetails from './pages/DeviceDetails.jsx';
-
+import ReportDetails from './pages/ReportDetails.jsx';
+import ReportsForm from './components/ReportsForm.jsx';
 
 function App() {
 	return (
@@ -33,9 +34,13 @@ function App() {
 									path="/dashboard/solicitudes"
 									element={<UserRequests />}
 								/>
+								<Route path="/dashboard/solicitudes/:requestId/reporte" element={<ReportsForm />}/>
 								<Route path="/dashboard/reportes" element={<UserReports />} />
 								<Route path="/dashboard/equipos" element={<Devices />} />
-								<Route path="/dashboard/equipos/:serial" element={<DeviceDetails />}/>
+								<Route
+									path="/dashboard/equipos/:serial"
+									element={<DeviceDetails />}
+								/>
 							</Route>
 						</Route>
 						<Route element={<ProtectedRoute redirectPath="/" role="admin" />}>
@@ -47,10 +52,14 @@ function App() {
 									element={<RequestDetails />}
 								/>
 								<Route path="/admin/reportes" element={<Reports />} />
+								<Route path="/admin/reportes/:id" element={<ReportDetails />}/>
 								<Route path="/admin/usuarios" element={<Users />} />
-								<Route path="/admin/usuarios/:id" element={ <UserDetails/> }/>
+								<Route path="/admin/usuarios/:id" element={<UserDetails />} />
 								<Route path="/admin/equipos" element={<Devices />} />
-								<Route path="/admin/equipos/:serial" element={<DeviceDetails/> }/>
+								<Route
+									path="/admin/equipos/:serial"
+									element={<DeviceDetails />}
+								/>
 							</Route>
 						</Route>
 						<Route path="*" element={<NotFound />} />

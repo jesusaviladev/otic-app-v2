@@ -29,7 +29,7 @@ const UserDetails = () => {
 			surname: '',
 			ci: '',
 			telephone: '',
-			email: ''
+			email: '',
 		},
 	});
 
@@ -43,24 +43,23 @@ const UserDetails = () => {
 
 	useEffect(() => {
 		getUserById(token, id)
-		.then((res) => {
-			setEditedUser(res.data.user)
-			reset({
-			username: res.data.user.username,
-			name: res.data.user.name,
-			surname: res.data.user.surname,
-			ci: res.data.user.ci,
-			telephone: res.data.user.telephone,
-			email: res.data.user.email
-		})
-		})
-		.catch((err) => {
-			console.log(err)
-		})
+			.then((res) => {
+				setEditedUser(res.data.user);
+				reset({
+					username: res.data.user.username,
+					name: res.data.user.name,
+					surname: res.data.user.surname,
+					ci: res.data.user.ci,
+					telephone: res.data.user.telephone,
+					email: res.data.user.email,
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}, []);
 
 	const onSubmit = (values) => {
-
 		editUser(token, id, values)
 			.then((res) => {
 				setFormSuccess(true);
@@ -90,7 +89,9 @@ const UserDetails = () => {
 
 	return (
 		<>
-			<h2 className="text-2xl font-bold my-4">{`Perfil ${editedUser.username}`} </h2>
+			<h2 className="text-2xl font-bold my-4">
+				{`Perfil ${editedUser.username}`}{' '}
+			</h2>
 
 			<button
 				onClick={() => {
@@ -102,74 +103,73 @@ const UserDetails = () => {
 			</button>
 
 			<form onSubmit={handleSubmit(onSubmit)}>
-
+				<Input
+					type="text"
+					fieldName="username"
+					label="Nombre de usuario"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa el nombre del usuario"
+					disabled={disabled}
+				/>
+				<Input
+					type="password"
+					fieldName="password"
+					label="Contraseña"
+					helper="Mínimo 6 caracteres, sensible a mayúsculas"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa una contraseña"
+					disabled={disabled}
+					minimLength={6}
+				/>
+				<div className="grid md:gap-4 md:grid-cols-2">
 					<Input
 						type="text"
-						fieldName="username"
-						label="Nombre de usuario"
+						fieldName="name"
+						label="Nombres"
 						register={register}
 						errors={errors}
-						placeholder="Ingresa el nombre del usuario"
+						placeholder="Ingresa los nombres"
 						disabled={disabled}
 					/>
 					<Input
-						type="password"
-						fieldName="password"
-						label="Contraseña"
-						helper="Mínimo 6 caracteres, sensible a mayúsculas"
+						type="text"
+						fieldName="surname"
+						label="Apellidos"
 						register={register}
 						errors={errors}
-						placeholder="Ingresa una contraseña"
+						placeholder="Ingresa los apellidos"
 						disabled={disabled}
-						minimLength={6}
 					/>
-					<div className="grid md:gap-4 md:grid-cols-2">
-						<Input
-							type="text"
-							fieldName="name"
-							label="Nombres"
-							register={register}
-							errors={errors}
-							placeholder="Ingresa los nombres"
-							disabled={disabled}
-						/>
-						<Input
-							type="text"
-							fieldName="surname"
-							label="Apellidos"
-							register={register}
-							errors={errors}
-							placeholder="Ingresa los apellidos"
-							disabled={disabled}
-						/>
-						<Input
-							type="text"
-							fieldName="ci"
-							label="Cédula de Identidad"
-							register={register}
-							errors={errors}
-							placeholder="Ej: V-26990863"
-							disabled={disabled}
-						/>
-						<Input
-							type="text"
-							fieldName="telephone"
-							label="Teléfono"
-							register={register}
-							errors={errors}
-							placeholder="Ingresa el teléfono (formato internacional)"
-							disabled={disabled}
-						/>
-					</div>
 					<Input
-						type="email"
-						fieldName="email"
-						label="Email"
+						type="text"
+						fieldName="ci"
+						label="Cédula de Identidad"
 						register={register}
 						errors={errors}
-						placeholder="Ingresa un correo electrónico válido"
+						placeholder="Ej: V-26990863"
 						disabled={disabled}
 					/>
+					<Input
+						type="text"
+						fieldName="telephone"
+						label="Teléfono"
+						register={register}
+						errors={errors}
+						placeholder="Ingresa el teléfono (formato internacional)"
+						disabled={disabled}
+					/>
+				</div>
+				<Input
+					type="email"
+					fieldName="email"
+					label="Email"
+					register={register}
+					errors={errors}
+					placeholder="Ingresa un correo electrónico válido"
+					disabled={disabled}
+				/>
 
 				<div className="flex justify-between items-center my-4">
 					<Link to="/admin/usuarios" className="mr-2">

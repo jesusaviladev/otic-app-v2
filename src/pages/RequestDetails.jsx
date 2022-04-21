@@ -118,18 +118,27 @@ const RequestDetails = () => {
 
 				<Controller
 					render={({ field }) => (
-						<select
-							{...field}
-							className="outline-none uppercase cursor-pointer border-2 text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 disabled:grayscale"
-							disabled={disabled}
-						>
-							<option value="">Sin usuario</option>
-							{users.map((user, index) => (
-								<option className="capitalize" key={index} value={user.value}>
-									{user.key}
-								</option>
-							))}
-						</select>
+						<>
+							<label
+								htmlFor="user_id"
+								className="block mb-2 text-sm font-medium text-gray-300"
+							>
+								Usuario asignado
+							</label>
+							<select
+								{...field}
+								className="outline-none uppercase cursor-pointer border-2 text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 disabled:grayscale"
+								disabled={disabled}
+								id="user_id"
+							>
+								<option value="">Sin usuario</option>
+								{users.map((user, index) => (
+									<option className="capitalize" key={index} value={user.value}>
+										{user.key}
+									</option>
+								))}
+							</select>
+						</>
 					)}
 					control={control}
 					name="user_id"

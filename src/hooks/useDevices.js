@@ -3,7 +3,6 @@ import { getDevices, deleteDevice } from '../services/devices.services.js';
 import useSession from '../hooks/useSession.js';
 
 const useDevices = () => {
-
 	const [devices, setDevices] = useState([]);
 	const [totalDevices, setTotalDevices] = useState(0);
 	const [pending, setPending] = useState(true);
@@ -16,7 +15,7 @@ const useDevices = () => {
 			.then((res) => {
 				setPending(false);
 				setDevices(res.data.devices);
-				setTotalDevices(res.data.pagination.total)
+				setTotalDevices(res.data.pagination.total);
 			})
 			.catch((error) => {
 				setPending(false);
@@ -25,16 +24,13 @@ const useDevices = () => {
 	}, []);
 
 	const handleDeleteDevice = useCallback((serial) => {
-
-		return deleteDevice(token, serial)
-			.then(() => {
-				setDevices((prevState) =>
-					prevState.filter((device) => device.serial !== serial)
-				);
-				setTotalDevices((prevState) => prevState - 1)
-			})
-
-	}, [])
+		return deleteDevice(token, serial).then(() => {
+			setDevices((prevState) =>
+				prevState.filter((device) => device.serial !== serial)
+			);
+			setTotalDevices((prevState) => prevState - 1);
+		});
+	}, []);
 
 	const handleNextPage = useCallback((page) => {
 		setPending(true);
@@ -51,8 +47,8 @@ const useDevices = () => {
 		pending,
 		user,
 		handleDeleteDevice,
-		handleNextPage
-	}
-}
+		handleNextPage,
+	};
+};
 
 export default useDevices;

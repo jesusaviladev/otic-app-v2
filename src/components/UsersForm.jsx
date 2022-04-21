@@ -6,7 +6,6 @@ import Button from '../components/Button.jsx';
 import Toast from '../components/Toast.jsx';
 
 const UsersForm = ({ handleAddUser }) => {
-
 	const [formError, setFormError] = useState(false);
 	const [formSuccess, setFormSuccess] = useState(false);
 
@@ -19,7 +18,6 @@ const UsersForm = ({ handleAddUser }) => {
 	} = useForm();
 
 	const onSubmit = (values) => {
-
 		handleAddUser(values)
 			.then((res) => {
 				reset();

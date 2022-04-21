@@ -92,7 +92,7 @@ const Requests = () => {
 				</button>
 			),
 		},
-	]);
+	], []);
 
 	const paginationComponentOptions = {
 		noRowsPerPage: true,

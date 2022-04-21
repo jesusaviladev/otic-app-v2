@@ -1,5 +1,5 @@
-import { useState, useMemo, useRef } from 'react'
-import useDevices from '../hooks/useDevices.js'
+import { useState, useMemo, useRef } from 'react';
+import useDevices from '../hooks/useDevices.js';
 import DataTable from 'react-data-table-component';
 import NoDataComponent from '../components/NoDataComponent.jsx';
 import TableSpinner from '../components/TableSpinner.jsx';
@@ -10,8 +10,14 @@ import ConfirmModal from '../components/ConfirmModal.jsx';
 import Toast from '../components/Toast.jsx';
 
 const Devices = () => {
-
-	const { devices, totalDevices, pending, user, handleDeleteDevice, handleNextPage } = useDevices();
+	const {
+		devices,
+		totalDevices,
+		pending,
+		user,
+		handleDeleteDevice,
+		handleNextPage,
+	} = useDevices();
 
 	const { showModal, toggleModal } = useModal();
 
@@ -19,7 +25,7 @@ const Devices = () => {
 
 	const selectedItemRef = useRef(null);
 
-	const { role } = JSON.parse(user)
+	const { role } = JSON.parse(user);
 
 	const handleDelete = (serial) => {
 		selectedItemRef.current = serial;
@@ -27,7 +33,6 @@ const Devices = () => {
 	};
 
 	const confirmModalAction = (serial) => {
-
 		handleDeleteDevice(serial)
 			.then(() => {
 				toggleModal();
@@ -64,10 +69,16 @@ const Devices = () => {
 			},
 		},
 		{
-			name: 'Editar',
+			name: 'Detalles',
 			button: true,
 			cell: (row) => (
-				<Link to={role === 'admin' ? `/admin/equipos/${row.serial}` : `/dashboard/equipos/${row.serial}`}>
+				<Link
+					to={
+						role === 'admin'
+							? `/admin/equipos/${row.serial}`
+							: `/dashboard/equipos/${row.serial}`
+					}
+				>
 					<FaEdit className="w-5 h-5 text-green-500" />
 				</Link>
 			),
@@ -80,9 +91,9 @@ const Devices = () => {
 					<FaTrash className="w-5 h-5 text-red-600" />
 				</button>
 			),
-			omit: role !== 'admin'
+			omit: role !== 'admin',
 		},
-	])
+	], []);
 
 	const paginationComponentOptions = {
 		rowsPerPageText: 'Filas por página',
