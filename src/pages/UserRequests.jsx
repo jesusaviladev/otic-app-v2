@@ -9,7 +9,7 @@ import TableSpinner from '../components/TableSpinner.jsx';
 import RequestsForm from '../components/RequestsForm.jsx';
 import Tabs from '../components/Tabs.jsx';
 import Tab from '../components/Tab.jsx';
-import { FaClipboardList, FaPlus, FaEdit } from 'react-icons/fa';
+import { FaClipboardList, FaPlus, FaEdit, FaSearchPlus } from 'react-icons/fa';
 
 const UserRequest = () => {
 	const [requests, setRequests] = useState([]);
@@ -67,6 +67,15 @@ const UserRequest = () => {
 						<FaEdit className="w-5 h-5 text-green-500 mr-2" /> Crear
 					</Link>
 				) : null,
+		},
+		{
+			name: 'Detalles',
+			button: true,
+			cell: (row) => ( <Link
+						to={`/dashboard/solicitudes/${row.id}`}>
+						<FaSearchPlus className="w-5 h-5 text-teal-400 mr-2" title="Ver detalles"/>
+					</Link>
+				)
 		},
 	];
 

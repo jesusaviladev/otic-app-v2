@@ -35,6 +35,10 @@ function App() {
 									element={<UserRequests />}
 								/>
 								<Route
+									path="/dashboard/solicitudes/:id"
+									element={<RequestDetails />}
+								/>
+								<Route
 									path="/dashboard/solicitudes/:requestId/reporte"
 									element={<ReportsForm />}
 								/>

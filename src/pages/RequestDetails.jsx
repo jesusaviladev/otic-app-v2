@@ -12,7 +12,7 @@ import Toast from '../components/Toast.jsx';
 const RequestDetails = () => {
 	const { id } = useParams();
 
-	const { user } = useSession();
+	const { user, role } = useSession();
 
 	const { token } = JSON.parse(user);
 
@@ -39,7 +39,8 @@ const RequestDetails = () => {
 	const [formSuccess, setFormSuccess] = useState(false);
 
 	useEffect(() => {
-		Promise.all([getRequestById(token, id), getUsers(token)])
+		if(role === 'admin'){
+			Promise.all([getRequestById(token, id), getUsers(token)])
 			.then((res) => {
 				reset({
 					user_id: res[0].data.request.user_id || '',
@@ -58,6 +59,21 @@ const RequestDetails = () => {
 				setUsers(users);
 			})
 			.catch((err) => console.log(err));
+		} else {
+			getRequestById(token, id)
+			.then((res) => {
+				reset({
+					user_id: res.data.request.user_id || '',
+					description: res.data.request.description,
+				});
+
+				const user = [{ value: res.data.request.user_id, key: res.data.request.user.username }]
+
+				setUsers(user)
+			})
+			.catch((err) => console.log(err));
+		}
+
 	}, []);
 
 	const onSubmit = (values) => {
@@ -106,6 +122,11 @@ const RequestDetails = () => {
 
 			<button
 				onClick={() => {
+					if (role !== 'admin') {
+						return setFormError({
+							message: 'No tienes permiso para realizar esta acción',
+						});
+					}
 					setDisabled(!disabled);
 				}}
 				className="cursor-pointer flex items-center my-4"

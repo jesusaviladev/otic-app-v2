@@ -12,8 +12,12 @@ const Login = () => {
 
 	const handleSubmit = (e) => {
 		// iniciamos sesion
+
+		const user = username.trim()
+		const pass = password.trim()
+
 		e.preventDefault();
-		handleLogin(username, password);
+		handleLogin(user, pass);
 	};
 
 	return (
