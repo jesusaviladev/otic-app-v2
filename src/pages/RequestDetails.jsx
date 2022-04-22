@@ -12,9 +12,9 @@ import Toast from '../components/Toast.jsx';
 const RequestDetails = () => {
 	const { id } = useParams();
 
-	const { user, role } = useSession();
+	const { user } = useSession();
 
-	const { token } = JSON.parse(user);
+	const { token, role } = JSON.parse(user);
 
 	const {
 		register,
