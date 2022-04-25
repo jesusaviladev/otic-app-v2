@@ -39,7 +39,9 @@ const LandingPage = () => {
 					alt="desktop illustration"
 					className="md:max-w-lg lg:max-w-xl xl:max-w-2xl saturate-200"
 				/>
+				
 			</main>
+
 		</>
 	);
 };

@@ -95,7 +95,7 @@ const ReportDetails = () => {
 
 				<p className="mb-3 font-bold text-white">
 					Fecha de emisión:{' '}
-					<span className="font-normal text-gray-400">{`${report.date}`}</span>
+					<span className="font-normal text-gray-400">{`${new Date(report.date).toLocaleString('es-ES')}`}</span>
 				</p>
 
 				<p className="mb-3 font-bold text-white">

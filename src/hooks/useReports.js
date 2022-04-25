@@ -11,7 +11,7 @@ const useReports = () => {
 	const { token } = JSON.parse(user);
 
 	useEffect(() => {
-		getReports(token)
+		getReports({ token })
 			.then((res) => {
 				setPending(false);
 				setReports(res.data.reports);
@@ -32,7 +32,7 @@ const useReports = () => {
 
 	const handleNextPage = useCallback((page) => {
 		setPending(true);
-		return getReports(token, page).then((res) => {
+		return getReports({token, page}).then((res) => {
 			setPending(false);
 			setReports(res.data.reports);
 			setTotalReports(res.data.pagination.total);

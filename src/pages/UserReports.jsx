@@ -36,7 +36,7 @@ const UserReports = () => {
 		},
 		{
 			name: 'Fecha',
-			selector: (row) => row.date,
+			selector: (row) => new Date(row.date).toLocaleString('es-ES'),
 		},
 	];
 

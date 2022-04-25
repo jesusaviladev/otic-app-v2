@@ -57,11 +57,16 @@ const Requests = () => {
 			{
 				name: 'Descripción',
 				selector: (row) => row.description,
+				style: {
+					maxWidth: '200px',
+					textOverflow: 'ellipsis',
+					overflow: 'hidden'
+				}
 			},
 			{
 				name: 'Fecha',
 				sortable: true,
-				selector: (row) => row.date,
+				selector: (row) => new Date(row.date).toLocaleString('es-ES'),
 			},
 			{
 				name: 'Estado',
