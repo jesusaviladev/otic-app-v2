@@ -8,6 +8,7 @@ import Button from '../components/Button.jsx';
 import { FaEdit } from 'react-icons/fa';
 import { getUsers } from '../services/users.services.js';
 import Toast from '../components/Toast.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const RequestDetails = () => {
 	const { id } = useParams();
@@ -63,6 +64,7 @@ const RequestDetails = () => {
 
 			getRequestById(token, id)
 			.then((res) => {
+
 				reset({
 					user_id: res.data.request.user_id || '',
 					description: res.data.request.description,
@@ -184,7 +186,7 @@ const RequestDetails = () => {
 				/>
 
 				<div className="flex justify-between items-center my-4">
-					<Link to="/admin/solicitudes" className="mr-2">
+					<Link to={role === 'admin' ? "/admin/solicitudes" : "/dashboard/solicitudes"} className="mr-2">
 						Volver
 					</Link>
 

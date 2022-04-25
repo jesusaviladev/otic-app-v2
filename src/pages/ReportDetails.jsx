@@ -7,6 +7,7 @@ import Button from '../components/Button.jsx';
 import { FaEdit } from 'react-icons/fa';
 import Toast from '../components/Toast.jsx';
 import TextAreaInput from '../components/TextAreaInput.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const ReportDetails = () => {
 	const { id } = useParams();
@@ -31,6 +32,8 @@ const ReportDetails = () => {
 
 	const [report, setReport] = useState({});
 
+	const [loading, setLoading] = useState(true)
+
 	const [formError, setFormError] = useState(false);
 
 	const [formSuccess, setFormSuccess] = useState(false);
@@ -38,6 +41,7 @@ const ReportDetails = () => {
 	useEffect(() => {
 		getReportById(token, id)
 			.then((res) => {
+				setLoading(false)
 				setReport(res.data.report);
 				reset({
 					comment: res.data.report.comment,
@@ -75,6 +79,8 @@ const ReportDetails = () => {
 				}
 			});
 	};
+
+	if(loading) return <Spinner/>
 
 	return (
 		<>
