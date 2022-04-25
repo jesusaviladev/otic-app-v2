@@ -3,7 +3,6 @@ import { getReports, deleteReport } from '../services/reports.services.js';
 import useSession from '../hooks/useSession.js';
 
 const useReports = () => {
-
 	const [reports, setReports] = useState([]);
 	const [pending, setPending] = useState(true);
 	const [totalReports, setTotalReports] = useState(0);
@@ -12,11 +11,11 @@ const useReports = () => {
 	const { token } = JSON.parse(user);
 
 	useEffect(() => {
-		getReports(token)
+		getReports({ token })
 			.then((res) => {
 				setPending(false);
 				setReports(res.data.reports);
-				setTotalReports(res.data.pagination.total)
+				setTotalReports(res.data.pagination.total);
 			})
 			.catch((error) => {
 				setPending(false);
@@ -25,24 +24,19 @@ const useReports = () => {
 	}, []);
 
 	const handleDeleteReport = useCallback((id) => {
-
-		return deleteReport(token, id)
-		.then((res) => {
-			setReports((prevState) =>
-				prevState.filter((report) => report.id !== id)
-			);
+		return deleteReport(token, id).then((res) => {
+			setReports((prevState) => prevState.filter((report) => report.id !== id));
 			setTotalReports((prevState) => prevState - 1);
 		});
-
-	}, [])
+	}, []);
 
 	const handleNextPage = useCallback((page) => {
-			setPending(true);
-			return getReports(token, page).then((res) => {
-				setPending(false);
-				setReports(res.data.reports);
-				setTotalReports(res.data.pagination.total)
-			});
+		setPending(true);
+		return getReports({token, page}).then((res) => {
+			setPending(false);
+			setReports(res.data.reports);
+			setTotalReports(res.data.pagination.total);
+		});
 	}, []);
 
 	return {
@@ -50,8 +44,8 @@ const useReports = () => {
 		pending,
 		totalReports,
 		handleDeleteReport,
-		handleNextPage
-	}
-}
+		handleNextPage,
+	};
+};
 
-export default useReports
+export default useReports;

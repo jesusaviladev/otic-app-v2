@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { API_URL } from './config.js';
 
-export const getRequests = (token, page = 1, limit = 10) => {
+export const getRequests = ({ token, page = 1, limit = 10, sortBy = 'id', orderBy = 'asc'}) => {
+
 	return axios({
 		method: 'get',
-		url: `${API_URL}/requests?page=${page}&limit=${limit}`,
+		url: `${API_URL}/requests?page=${page}&limit=${limit}&sortBy=${sortBy}&orderBy=${orderBy}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},

@@ -46,53 +46,62 @@ const Requests = () => {
 			});
 	};
 
-	const columns = useMemo(() => [
-		{
-			name: 'ID',
-			sortable: true,
-			width: '70px',
-			selector: (row) => row.id,
-		},
-		{
-			name: 'Descripción',
-			selector: (row) => row.description,
-		},
-		{
-			name: 'Fecha',
-			sortable: true,
-			selector: (row) => row.date,
-		},
-		{
-			name: 'Estado',
-			selector: (row) => row.status?.description,
-			style: {
-				textTransform: 'capitalize',
+	const columns = useMemo(
+		() => [
+			{
+				name: 'ID',
+				sortable: true,
+				width: '70px',
+				selector: (row) => row.id,
 			},
-		},
-		{
-			name: 'Usuario',
-			sortable: true,
-			selector: (row) => row.user?.username,
-		},
-		{
-			name: 'Editar',
-			button: true,
-			cell: (row) => (
-				<Link to={`/admin/solicitudes/${row.id}`}>
-					<FaEdit className="w-5 h-5 text-green-500" />
-				</Link>
-			),
-		},
-		{
-			name: 'Eliminar',
-			button: true,
-			cell: (row) => (
-				<button data-id={row.id} onClick={() => handleDelete(row.id)}>
-					<FaTrash className="w-5 h-5 text-red-600" />
-				</button>
-			),
-		},
-	], []);
+			{
+				name: 'Descripción',
+				selector: (row) => row.description,
+				style: {
+					maxWidth: '200px',
+					textOverflow: 'ellipsis',
+					overflow: 'hidden'
+				}
+			},
+			{
+				name: 'Fecha',
+				sortable: true,
+				selector: (row) => new Date(row.date).toLocaleString('es-ES'),
+			},
+			{
+				name: 'Estado',
+				sortable: true,
+				selector: (row) => row.status?.description,
+				style: {
+					textTransform: 'capitalize',
+				},
+			},
+			{
+				name: 'Usuario',
+				sortable: true,
+				selector: (row) => row.user?.username,
+			},
+			{
+				name: 'Editar',
+				button: true,
+				cell: (row) => (
+					<Link to={`/admin/solicitudes/${row.id}`}>
+						<FaEdit className="w-5 h-5 text-green-500" />
+					</Link>
+				),
+			},
+			{
+				name: 'Eliminar',
+				button: true,
+				cell: (row) => (
+					<button data-id={row.id} onClick={() => handleDelete(row.id)}>
+						<FaTrash className="w-5 h-5 text-red-600" />
+					</button>
+				),
+			},
+		],
+		[]
+	);
 
 	const paginationComponentOptions = {
 		noRowsPerPage: true,

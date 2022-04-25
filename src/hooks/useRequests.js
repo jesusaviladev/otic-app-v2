@@ -16,7 +16,7 @@ const useRequests = () => {
 
 	useEffect(() => {
 		if (role === 'admin') {
-			getRequests(token)
+			getRequests({ token })
 				.then((res) => {
 					setPending(false);
 					setRequests(res.data.requests);
@@ -46,7 +46,7 @@ const useRequests = () => {
 
 	const handleNextPage = useCallback((page) => {
 		setPending(true);
-		return getRequests(token, page).then((res) => {
+		return getRequests({ token, page }).then((res) => {
 			setPending(false);
 			setRequests(res.data.requests);
 			setTotalRequests(res.data.page.total);

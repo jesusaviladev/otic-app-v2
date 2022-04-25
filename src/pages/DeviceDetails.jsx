@@ -89,10 +89,10 @@ const DeviceDetails = () => {
 
 			<button
 				onClick={() => {
-					if(role !== 'admin'){
+					if (role !== 'admin') {
 						return setFormError({
-							message: 'No tienes permiso para realizar esta acción'
-						})
+							message: 'No tienes permiso para realizar esta acción',
+						});
 					}
 
 					setDisabled(!disabled);
@@ -151,7 +151,10 @@ const DeviceDetails = () => {
 				/>
 
 				<div className="flex justify-between items-center my-4">
-					<Link to={role === 'admin' ? "/admin/equipos" : "/dashboard/equipos"} className="mr-2">
+					<Link
+						to={role === 'admin' ? '/admin/equipos' : '/dashboard/equipos'}
+						className="mr-2"
+					>
 						Volver
 					</Link>
 

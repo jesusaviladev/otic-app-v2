@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { API_URL } from './config.js';
 
-export const getReports = (token, page = 1, limit = 10) => {
+export const getReports = ({ token, page = 1, limit = 10, sortBy = 'id' , orderBy = 'asc' }) => {
 	return axios({
 		method: 'get',
-		url: `${API_URL}/reports?page=${page}&limit=${limit}`,
+		url: `${API_URL}/reports?page=${page}&limit=${limit}&sortBy=${sortBy}&orderBy=${orderBy}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
@@ -17,9 +17,9 @@ export const getReportById = (token, id) => {
 		url: `${API_URL}/reports/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
-	})
-}
+		},
+	});
+};
 
 export const createReport = (token, data) => {
 	return axios({
@@ -49,6 +49,6 @@ export const deleteReport = (token, id) => {
 		url: `${API_URL}/reports/${id}`,
 		headers: {
 			Authorization: `Bearer ${token}`,
-		}
+		},
 	});
-}
+};
