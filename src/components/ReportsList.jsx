@@ -1,20 +1,20 @@
 const ReportsList = ({ title, reports = [], link = '#' }) => {
 	return (
 		<>
-			<div className="p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-neutral-900 dark:border-neutral-700">
+			<div className="p-4 rounded-lg border shadow-md sm:p-8 bg-neutral-900 border-neutral-700">
 				<div className="flex justify-between items-center mb-4">
-					<h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+					<h5 className="text-xl font-bold leading-none text-white">
 						{title}
 					</h5>
 					<a
 						href={link}
-						className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+						className="text-sm font-medium hover:underline text-blue-500"
 					>
 						Ver todo
 					</a>
 				</div>
 				<div className="flow-root">
-					<ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+					<ul role="list" className="divide-y divide-gray-700">
 					{
 						reports.map((report, index) => (
 

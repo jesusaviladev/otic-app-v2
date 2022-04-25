@@ -2,12 +2,12 @@ import { createPortal } from 'react-dom';
 const ConfirmModal = ({ onClose, message, onConfirm }) => {
 	return createPortal(
 		<div className="fixed top-0 left-0 w-full h-screen bg-black/50 z-50 flex items-center justify-center">
-			<div className="relative max-w-md p-4 bg-white rounded-lg shadow dark:bg-gray-700">
+			<div className="relative max-w-md p-4 rounded-lg shadow bg-gray-700">
 				<div className="flex justify-end p-2">
 					<button
 						onClick={onClose}
 						type="button"
-						className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+						className="bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
 					>
 						<svg
 							className="w-5 h-5"
@@ -38,7 +38,7 @@ const ConfirmModal = ({ onClose, message, onConfirm }) => {
 							d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 						></path>
 					</svg>
-					<h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+					<h3 className="mb-5 text-lg font-normal text-gray-400">
 						{message}
 					</h3>
 					<p className="mb-5 text-sm font-normal">
@@ -54,7 +54,7 @@ const ConfirmModal = ({ onClose, message, onConfirm }) => {
 					<button
 						onClick={onClose}
 						type="button"
-						className="text-gray-500 bg-white hover:bg-gray-100 focus:outline-none rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+						className=" focus:outline-none rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600"
 					>
 						Cancelar
 					</button>
