@@ -7,6 +7,7 @@ import Button from '../components/Button.jsx';
 import { FaEdit } from 'react-icons/fa';
 import Toast from '../components/Toast.jsx';
 import Input from '../components/Input.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const DeviceDetails = () => {
 	const { serial } = useParams();
@@ -34,6 +35,8 @@ const DeviceDetails = () => {
 
 	const [device, setDevice] = useState([]);
 
+	const [loading, setLoading] = useState(true)
+
 	const [formError, setFormError] = useState(false);
 
 	const [formSuccess, setFormSuccess] = useState(false);
@@ -41,6 +44,7 @@ const DeviceDetails = () => {
 	useEffect(() => {
 		getDeviceBySerial(token, serial)
 			.then((res) => {
+				setLoading(false)
 				setDevice(res.data.device);
 				reset({
 					serial: res.data.device.serial,
@@ -80,6 +84,8 @@ const DeviceDetails = () => {
 				}
 			});
 	};
+
+	if(loading) return <Spinner/>
 
 	return (
 		<>

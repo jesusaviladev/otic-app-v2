@@ -8,6 +8,7 @@ import Button from '../components/Button.jsx';
 import { FaEdit } from 'react-icons/fa';
 import { getUsers } from '../services/users.services.js';
 import Toast from '../components/Toast.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const RequestDetails = () => {
 	const { id } = useParams();
@@ -40,14 +41,10 @@ const RequestDetails = () => {
 
 	useEffect(() => {
 		if(role === 'admin'){
-			Promise.all([getRequestById(token, id), getUsers(token)])
+			getUsers(token)
 			.then((res) => {
-				reset({
-					user_id: res[0].data.request.user_id || '',
-					description: res[0].data.request.description,
-				});
 
-				const users = res[1].data.users
+				const users = res.data.users
 					.filter((user) => user.role_id !== 1)
 					.map((user) => {
 						return {
@@ -59,22 +56,30 @@ const RequestDetails = () => {
 				setUsers(users);
 			})
 			.catch((err) => console.log(err));
-		} else {
+		} 
+
+	}, []);
+
+	useEffect(() => {
+
 			getRequestById(token, id)
 			.then((res) => {
+
 				reset({
 					user_id: res.data.request.user_id || '',
 					description: res.data.request.description,
 				});
 
-				const user = [{ value: res.data.request.user_id, key: res.data.request.user.username }]
+				if(role !== 'admin'){
+					const user = [{ value: res.data.request.user_id, key: res.data.request.user.username }]
 
-				setUsers(user)
+					setUsers(user)
+				}
 			})
 			.catch((err) => console.log(err));
-		}
 
-	}, []);
+
+	}, [])
 
 	const onSubmit = (values) => {
 		const data = {
@@ -181,7 +186,7 @@ const RequestDetails = () => {
 				/>
 
 				<div className="flex justify-between items-center my-4">
-					<Link to="/admin/solicitudes" className="mr-2">
+					<Link to={role === 'admin' ? "/admin/solicitudes" : "/dashboard/solicitudes"} className="mr-2">
 						Volver
 					</Link>
 

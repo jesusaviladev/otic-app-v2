@@ -48,6 +48,7 @@ function App() {
 									path="/dashboard/equipos/:serial"
 									element={<DeviceDetails />}
 								/>
+								<Route path="/dashboard/usuario" element={<UserDetails/>}/>
 							</Route>
 						</Route>
 						<Route element={<ProtectedRoute redirectPath="/" role="admin" />}>
@@ -67,6 +68,7 @@ function App() {
 									path="/admin/equipos/:serial"
 									element={<DeviceDetails />}
 								/>
+								<Route path="/admin/usuario" element={<UserDetails/>}/>
 							</Route>
 						</Route>
 						<Route path="*" element={<NotFound />} />

@@ -51,9 +51,9 @@ const Login = () => {
 					/>
 				</div>
 				<div className="mb-6 text-right">
-					<a href="#" className="text-xs md:text-sm hover:text-yellow-400">
+				{/*	<a href="#" className="text-xs md:text-sm hover:text-yellow-400">
 						¿Olvidaste tu contraseña?
-					</a>
+					</a> */}
 				</div>
 				<div className="mb-2">
 					<button

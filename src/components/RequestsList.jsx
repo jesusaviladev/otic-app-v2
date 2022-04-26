@@ -1,20 +1,20 @@
 const RequestsList = ({ title, requests = [], link = '#' }) => {
 	return (
 		<>
-			<div className="p-4 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-neutral-900 dark:border-neutral-700">
+			<div className="p-4 rounded-lg border shadow-md sm:p-8 bg-neutral-900 border-neutral-700">
 				<div className="flex justify-between items-center mb-4">
-					<h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+					<h5 className="text-xl font-bold leading-none text-white">
 						{title}
 					</h5>
 					<a
 						href={link}
-						className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+						className="text-sm font-medium hover:underline text-blue-500"
 					>
 						Ver todo
 					</a>
 				</div>
 				<div className="flow-root">
-					<ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+					<ul role="list" className="divide-y divide-gray-700">
 					{
 						requests.map((request, index) => (
 
@@ -25,7 +25,7 @@ const RequestsList = ({ title, requests = [], link = '#' }) => {
 										<p className="text-sm font-medium text-white truncate">
 											{request.description}
 										</p>
-										<p className="text-sm text-gray-500 truncate dark:text-gray-400">
+										<p className="text-sm truncate text-gray-400">
 											{new Date(request.date).toLocaleString('es-ES')}
 										</p>
 									</div>

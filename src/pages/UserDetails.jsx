@@ -7,11 +7,16 @@ import Button from '../components/Button.jsx';
 import { FaEdit } from 'react-icons/fa';
 import Toast from '../components/Toast.jsx';
 import Input from '../components/Input.jsx';
+import Spinner from '../components/Spinner.jsx';
 
 const UserDetails = () => {
-	const { id } = useParams();
+	let { id } = useParams();
 
 	const { user } = useSession();
+
+	if(!id){
+		id = JSON.parse(user).id
+	} //fix quizas despues XD
 
 	const { token } = JSON.parse(user);
 
@@ -37,6 +42,8 @@ const UserDetails = () => {
 
 	const [editedUser, setEditedUser] = useState([]);
 
+	const [loading, setLoading] = useState(true)
+
 	const [formError, setFormError] = useState(false);
 
 	const [formSuccess, setFormSuccess] = useState(false);
@@ -44,6 +51,7 @@ const UserDetails = () => {
 	useEffect(() => {
 		getUserById(token, id)
 			.then((res) => {
+				setLoading(false)
 				setEditedUser(res.data.user);
 				reset({
 					username: res.data.user.username,
@@ -86,6 +94,8 @@ const UserDetails = () => {
 				}
 			});
 	};
+
+	if(loading) return <Spinner/>
 
 	return (
 		<>
