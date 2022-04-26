@@ -23,7 +23,7 @@ const Navbar = ({ children }) => {
 				</button>
 			</div>
 				<div id="dropdownDivider" class={`absolute top-full right-0 z-20 divide-y rounded-b-lg shadow w-full md:w-80 bg-neutral-900 divide-gray-600 ${showClass}`}>
-				    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
+				    <ul class="py-1 text-sm text-gray-200" aria-labelledby="dropdownDividerButton">
 				      <li>
 				        <a href={role === 'admin' ? `/admin/usuario/` : `/dashboard/usuario/`} class="block px-6 py-4 hover:bg-red-600 hover:text-white">Mi perfil</a>
 				      </li>
